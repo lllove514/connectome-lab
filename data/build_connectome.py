@@ -178,16 +178,20 @@ def read_network(zip_path, label):
 def classify(node_type, node_subtype):
     """Map a node's type fields to (is_neuron, role).
 
-    Membership is decided by node_type alone — the neuron buckets are
+    Membership is decided mainly by node_type — the neuron buckets are
     'SENSORY NEURONS', 'INTERNEURONS' and 'MOTOR NEURONS'. node_subtype must NOT
-    feed this test: body-wall muscles, end organs and sex-specific cells carry a
+    add neurons: body-wall muscles, end organs and sex-specific cells carry a
     subtype of 'BODY MOTOR NEURONS' (the neurons that drive them), so folding it
-    in would misfile ~130 non-neurons as motor neurons. Role is the anatomical
-    prefix of node_type, falling back to node_subtype for a confirmed neuron.
+    in would misfile ~130 non-neurons as motor neurons. It can only REMOVE them:
+    a handful of cells (e.g. the head mesodermal cell hmc) are typed
+    'MOTOR NEURONS' yet flagged an end organ or muscle in the subtype, and those
+    are not neurons. Role is the anatomical prefix of node_type, falling back to
+    node_subtype for a confirmed neuron.
     """
-    is_neuron = "neuron" in node_type.lower()
+    sub = node_subtype.lower()
+    is_neuron = "neuron" in node_type.lower() and "end organ" not in sub and "muscle" not in sub
     role = "unknown"
-    for text in (node_type.lower(), node_subtype.lower()):
+    for text in (node_type.lower(), sub):
         for keyword in ("sensory", "inter", "motor"):
             if keyword in text:
                 role = keyword
@@ -435,6 +439,8 @@ def selftest():
     # subtype; membership keys off node_type so they must stay out of the graph.
     assert classify("BODYWALL MUSCLES", "BODY MOTOR NEURONS")[0] is False
     assert classify("OTHER END ORGANS", "BODY MOTOR NEURONS")[0] is False
+    # hmc is typed 'MOTOR NEURONS' but flagged an end organ by its subtype.
+    assert classify("MOTOR NEURONS", "OTHER END ORGANS")[0] is False
     assert classify("PHARYNX", "") == (False, "unknown")
     assert len(EXTRA_NEURONS) == 30
     assert rescued_role("I3") == "inter"

@@ -22698,19 +22698,9 @@
       "weight": 1
     },
     {
-      "source": "PVDL",
-      "target": "hmc",
-      "weight": 400
-    },
-    {
       "source": "PVDR",
       "target": "VD09",
       "weight": 1
-    },
-    {
-      "source": "PVDR",
-      "target": "hmc",
-      "weight": 400
     },
     {
       "source": "PVM",
@@ -23823,13 +23813,13 @@
     "counts": {
       "by_type": {
         "inter": 89,
-        "motor": 129,
+        "motor": 128,
         "sensory": 83,
         "unknown": 2
       },
       "chemical": 3671,
-      "gap": 1092,
-      "neurons": 303
+      "gap": 1090,
+      "neurons": 302
     },
     "retrieved_date": "2026-06-30",
     "source": "Cook et al. 2019 C. elegans hermaphrodite connectome (Emmons Lab / WormWiring), via the Netzschleuder mirror",
@@ -23841,295 +23831,295 @@
       "id": "ADAL",
       "name": "ADAL",
       "type": "inter",
-      "x": 0.59487,
-      "y": 0.64109
+      "x": 0.60388,
+      "y": 0.63586
     },
     {
       "class": "ADA",
       "id": "ADAR",
       "name": "ADAR",
       "type": "inter",
-      "x": 0.60452,
-      "y": 0.6257
+      "x": 0.60819,
+      "y": 0.62477
     },
     {
       "class": "ADE",
       "id": "ADEL",
       "name": "ADEL",
       "type": "sensory",
-      "x": 0.5296,
-      "y": 0.65506
+      "x": 0.53672,
+      "y": 0.65813
     },
     {
       "class": "ADE",
       "id": "ADER",
       "name": "ADER",
       "type": "sensory",
-      "x": 0.57699,
-      "y": 0.63501
+      "x": 0.57754,
+      "y": 0.64434
     },
     {
       "class": "ADF",
       "id": "ADFL",
       "name": "ADFL",
       "type": "sensory",
-      "x": 0.55825,
-      "y": 0.5479
+      "x": 0.55631,
+      "y": 0.54815
     },
     {
       "class": "ADF",
       "id": "ADFR",
       "name": "ADFR",
       "type": "sensory",
-      "x": 0.60142,
-      "y": 0.56301
+      "x": 0.59721,
+      "y": 0.56247
     },
     {
       "class": "ADL",
       "id": "ADLL",
       "name": "ADLL",
       "type": "sensory",
-      "x": 0.62118,
-      "y": 0.60556
+      "x": 0.62634,
+      "y": 0.59395
     },
     {
       "class": "ADL",
       "id": "ADLR",
       "name": "ADLR",
       "type": "sensory",
-      "x": 0.61103,
-      "y": 0.61004
+      "x": 0.6117,
+      "y": 0.60832
     },
     {
       "class": "AF",
       "id": "AFDL",
       "name": "AFDL",
       "type": "sensory",
-      "x": 0.59395,
-      "y": 0.48228
+      "x": 0.59827,
+      "y": 0.47739
     },
     {
       "class": "AF",
       "id": "AFDR",
       "name": "AFDR",
       "type": "sensory",
-      "x": 0.60995,
-      "y": 0.47838
+      "x": 0.58235,
+      "y": 0.47732
     },
     {
       "class": "AIA",
       "id": "AIAL",
       "name": "AIAL",
       "type": "inter",
-      "x": 0.65632,
-      "y": 0.56304
+      "x": 0.6539,
+      "y": 0.55355
     },
     {
       "class": "AIA",
       "id": "AIAR",
       "name": "AIAR",
       "type": "inter",
-      "x": 0.67467,
-      "y": 0.53516
+      "x": 0.66649,
+      "y": 0.5254
     },
     {
       "class": "AIB",
       "id": "AIBL",
       "name": "AIBL",
       "type": "inter",
-      "x": 0.58162,
-      "y": 0.61233
+      "x": 0.58287,
+      "y": 0.61329
     },
     {
       "class": "AIB",
       "id": "AIBR",
       "name": "AIBR",
       "type": "inter",
-      "x": 0.59074,
-      "y": 0.62168
+      "x": 0.59324,
+      "y": 0.62123
     },
     {
       "class": "AIM",
       "id": "AIML",
       "name": "AIML",
       "type": "inter",
-      "x": 0.63778,
-      "y": 0.62897
+      "x": 0.64383,
+      "y": 0.61848
     },
     {
       "class": "AIM",
       "id": "AIMR",
       "name": "AIMR",
       "type": "inter",
-      "x": 0.65836,
-      "y": 0.61026
+      "x": 0.658,
+      "y": 0.60217
     },
     {
       "class": "AIN",
       "id": "AINL",
       "name": "AINL",
       "type": "inter",
-      "x": 0.58515,
-      "y": 0.54123
+      "x": 0.57801,
+      "y": 0.542
     },
     {
       "class": "AIN",
       "id": "AINR",
       "name": "AINR",
       "type": "inter",
-      "x": 0.59619,
-      "y": 0.52047
+      "x": 0.59039,
+      "y": 0.51887
     },
     {
       "class": "AIY",
       "id": "AIYL",
       "name": "AIYL",
       "type": "inter",
-      "x": 0.60506,
-      "y": 0.53402
+      "x": 0.60154,
+      "y": 0.53095
     },
     {
       "class": "AIY",
       "id": "AIYR",
       "name": "AIYR",
       "type": "inter",
-      "x": 0.59101,
-      "y": 0.49948
+      "x": 0.57974,
+      "y": 0.4984
     },
     {
       "class": "AIZ",
       "id": "AIZL",
       "name": "AIZL",
       "type": "inter",
-      "x": 0.60278,
-      "y": 0.58845
+      "x": 0.60247,
+      "y": 0.58807
     },
     {
       "class": "AIZ",
       "id": "AIZR",
       "name": "AIZR",
       "type": "inter",
-      "x": 0.61532,
-      "y": 0.57724
+      "x": 0.61223,
+      "y": 0.57555
     },
     {
       "class": "ALA",
       "id": "ALA",
       "name": "ALA",
       "type": "inter",
-      "x": 0.75194,
-      "y": 0.66644
+      "x": 0.75352,
+      "y": 0.64658
     },
     {
       "class": "ALM",
       "id": "ALML",
       "name": "ALML",
       "type": "sensory",
-      "x": 0.5638,
-      "y": 0.69928
+      "x": 0.58073,
+      "y": 0.69444
     },
     {
       "class": "ALM",
       "id": "ALMR",
       "name": "ALMR",
       "type": "sensory",
-      "x": 0.52236,
-      "y": 0.71078
+      "x": 0.516,
+      "y": 0.72195
     },
     {
       "class": "ALN",
       "id": "ALNL",
       "name": "ALNL",
       "type": "sensory",
-      "x": 0.41223,
-      "y": 0.65546
+      "x": 0.4174,
+      "y": 0.66907
     },
     {
       "class": "ALN",
       "id": "ALNR",
       "name": "ALNR",
       "type": "sensory",
-      "x": 0.48011,
-      "y": 0.6875
+      "x": 0.49507,
+      "y": 0.70832
     },
     {
       "class": "AQ",
       "id": "AQR",
       "name": "AQR",
       "type": "sensory",
-      "x": 0.61521,
-      "y": 0.67354
+      "x": 0.62159,
+      "y": 0.67292
     },
     {
       "class": "AS01",
       "id": "AS01",
       "name": "AS01",
       "type": "motor",
-      "x": 0.79832,
-      "y": 0.67747
+      "x": 0.80372,
+      "y": 0.67099
     },
     {
       "class": "AS02",
       "id": "AS02",
       "name": "AS02",
       "type": "motor",
-      "x": 0.80331,
-      "y": 0.7187
+      "x": 0.814,
+      "y": 0.71307
     },
     {
       "class": "AS03",
       "id": "AS03",
       "name": "AS03",
       "type": "motor",
-      "x": 0.81851,
-      "y": 0.70925
+      "x": 0.82561,
+      "y": 0.70006
     },
     {
       "class": "AS04",
       "id": "AS04",
       "name": "AS04",
       "type": "motor",
-      "x": 0.80948,
-      "y": 0.75566
+      "x": 0.8224,
+      "y": 0.74868
     },
     {
       "class": "AS05",
       "id": "AS05",
       "name": "AS05",
       "type": "motor",
-      "x": 0.80272,
-      "y": 0.78518
+      "x": 0.80382,
+      "y": 0.78932
     },
     {
       "class": "AS06",
       "id": "AS06",
       "name": "AS06",
       "type": "motor",
-      "x": 0.78547,
-      "y": 0.85841
+      "x": 0.80591,
+      "y": 0.85151
     },
     {
       "class": "AS07",
       "id": "AS07",
       "name": "AS07",
       "type": "motor",
-      "x": 0.78725,
-      "y": 0.90297
+      "x": 0.81025,
+      "y": 0.89463
     },
     {
       "class": "AS08",
       "id": "AS08",
       "name": "AS08",
       "type": "motor",
-      "x": 0.73024,
-      "y": 0.92866
+      "x": 0.74632,
+      "y": 0.92751
     },
     {
       "class": "AS09",
       "id": "AS09",
       "name": "AS09",
       "type": "motor",
-      "x": 0.70411,
+      "x": 0.72525,
       "y": 0.98
     },
     {
@@ -24137,360 +24127,360 @@
       "id": "AS10",
       "name": "AS10",
       "type": "motor",
-      "x": 0.6977,
-      "y": 0.8244
+      "x": 0.7152,
+      "y": 0.81693
     },
     {
       "class": "AS11",
       "id": "AS11",
       "name": "AS11",
       "type": "motor",
-      "x": 0.64541,
-      "y": 0.81195
+      "x": 0.67802,
+      "y": 0.80518
     },
     {
       "class": "ASE",
       "id": "ASEL",
       "name": "ASEL",
       "type": "sensory",
-      "x": 0.62074,
-      "y": 0.50107
+      "x": 0.60932,
+      "y": 0.49731
     },
     {
       "class": "ASE",
       "id": "ASER",
       "name": "ASER",
       "type": "sensory",
-      "x": 0.65453,
-      "y": 0.52778
+      "x": 0.64672,
+      "y": 0.51987
     },
     {
       "class": "ASG",
       "id": "ASGL",
       "name": "ASGL",
       "type": "sensory",
-      "x": 0.64823,
-      "y": 0.50268
+      "x": 0.64016,
+      "y": 0.49437
     },
     {
       "class": "ASG",
       "id": "ASGR",
       "name": "ASGR",
       "type": "sensory",
-      "x": 0.65593,
-      "y": 0.48485
+      "x": 0.63958,
+      "y": 0.47613
     },
     {
       "class": "ASH",
       "id": "ASHL",
       "name": "ASHL",
       "type": "sensory",
-      "x": 0.63467,
-      "y": 0.60793
+      "x": 0.63759,
+      "y": 0.59935
     },
     {
       "class": "ASH",
       "id": "ASHR",
       "name": "ASHR",
       "type": "sensory",
-      "x": 0.65519,
-      "y": 0.61827
+      "x": 0.65703,
+      "y": 0.61266
     },
     {
       "class": "ASI",
       "id": "ASIL",
       "name": "ASIL",
       "type": "sensory",
-      "x": 0.58608,
-      "y": 0.50985
+      "x": 0.57611,
+      "y": 0.51124
     },
     {
       "class": "ASI",
       "id": "ASIR",
       "name": "ASIR",
       "type": "sensory",
-      "x": 0.63607,
-      "y": 0.48696
+      "x": 0.62191,
+      "y": 0.48498
     },
     {
       "class": "ASJ",
       "id": "ASJL",
       "name": "ASJL",
       "type": "sensory",
-      "x": 0.66697,
-      "y": 0.56735
+      "x": 0.66801,
+      "y": 0.55177
     },
     {
       "class": "ASJ",
       "id": "ASJR",
       "name": "ASJR",
       "type": "sensory",
-      "x": 0.7817,
-      "y": 0.56367
+      "x": 0.7769,
+      "y": 0.54172
     },
     {
       "class": "ASK",
       "id": "ASKL",
       "name": "ASKL",
       "type": "sensory",
-      "x": 0.70489,
-      "y": 0.55745
+      "x": 0.70214,
+      "y": 0.54052
     },
     {
       "class": "ASK",
       "id": "ASKR",
       "name": "ASKR",
       "type": "sensory",
-      "x": 0.69857,
-      "y": 0.58504
+      "x": 0.69694,
+      "y": 0.57069
     },
     {
       "class": "AUA",
       "id": "AUAL",
       "name": "AUAL",
       "type": "inter",
-      "x": 0.58785,
-      "y": 0.58187
+      "x": 0.5854,
+      "y": 0.58324
     },
     {
       "class": "AUA",
       "id": "AUAR",
       "name": "AUAR",
       "type": "inter",
-      "x": 0.61782,
-      "y": 0.54765
+      "x": 0.61083,
+      "y": 0.54618
     },
     {
       "class": "AVA",
       "id": "AVAL",
       "name": "AVAL",
       "type": "inter",
-      "x": 0.64834,
-      "y": 0.7286
+      "x": 0.65904,
+      "y": 0.72751
     },
     {
       "class": "AVA",
       "id": "AVAR",
       "name": "AVAR",
       "type": "inter",
-      "x": 0.66157,
-      "y": 0.7305
+      "x": 0.6715,
+      "y": 0.72836
     },
     {
       "class": "AVB",
       "id": "AVBL",
       "name": "AVBL",
       "type": "inter",
-      "x": 0.65768,
-      "y": 0.73721
+      "x": 0.6699,
+      "y": 0.73487
     },
     {
       "class": "AVB",
       "id": "AVBR",
       "name": "AVBR",
       "type": "inter",
-      "x": 0.66729,
-      "y": 0.72029
+      "x": 0.67768,
+      "y": 0.71631
     },
     {
       "class": "AV",
       "id": "AVDL",
       "name": "AVDL",
       "type": "inter",
-      "x": 0.67564,
-      "y": 0.72158
+      "x": 0.68563,
+      "y": 0.71937
     },
     {
       "class": "AV",
       "id": "AVDR",
       "name": "AVDR",
       "type": "inter",
-      "x": 0.65202,
-      "y": 0.72443
+      "x": 0.66364,
+      "y": 0.72035
     },
     {
       "class": "AVE",
       "id": "AVEL",
       "name": "AVEL",
       "type": "inter",
-      "x": 0.64159,
-      "y": 0.65895
+      "x": 0.64764,
+      "y": 0.65844
     },
     {
       "class": "AVE",
       "id": "AVER",
       "name": "AVER",
       "type": "inter",
-      "x": 0.61398,
-      "y": 0.65256
+      "x": 0.61925,
+      "y": 0.6535
     },
     {
       "class": "AVF",
       "id": "AVFL",
       "name": "AVFL",
       "type": "inter",
-      "x": 0.68139,
-      "y": 0.72887
+      "x": 0.69942,
+      "y": 0.70833
     },
     {
       "class": "AVF",
       "id": "AVFR",
       "name": "AVFR",
       "type": "inter",
-      "x": 0.65676,
-      "y": 0.69629
+      "x": 0.67327,
+      "y": 0.67789
     },
     {
       "class": "AVG",
       "id": "AVG",
       "name": "AVG",
       "type": "inter",
-      "x": 0.67739,
-      "y": 0.77252
+      "x": 0.69856,
+      "y": 0.76
     },
     {
       "class": "AVH",
       "id": "AVHL",
       "name": "AVHL",
       "type": "inter",
-      "x": 0.63929,
-      "y": 0.70277
+      "x": 0.65259,
+      "y": 0.69748
     },
     {
       "class": "AVH",
       "id": "AVHR",
       "name": "AVHR",
       "type": "inter",
-      "x": 0.62157,
-      "y": 0.71645
+      "x": 0.64215,
+      "y": 0.70344
     },
     {
       "class": "AVJ",
       "id": "AVJL",
       "name": "AVJL",
       "type": "inter",
-      "x": 0.63728,
-      "y": 0.71878
+      "x": 0.65213,
+      "y": 0.71193
     },
     {
       "class": "AVJ",
       "id": "AVJR",
       "name": "AVJR",
       "type": "inter",
-      "x": 0.63125,
-      "y": 0.71278
+      "x": 0.64125,
+      "y": 0.71344
     },
     {
       "class": "AVK",
       "id": "AVKL",
       "name": "AVKL",
       "type": "inter",
-      "x": 0.56913,
-      "y": 0.72605
+      "x": 0.58133,
+      "y": 0.7307
     },
     {
       "class": "AVK",
       "id": "AVKR",
       "name": "AVKR",
       "type": "inter",
-      "x": 0.54832,
-      "y": 0.69577
+      "x": 0.56028,
+      "y": 0.69843
     },
     {
       "class": "A",
       "id": "AVL",
       "name": "AVL",
       "type": "inter",
-      "x": 0.62773,
-      "y": 0.75841
+      "x": 0.65493,
+      "y": 0.74841
     },
     {
       "class": "AVM",
       "id": "AVM",
       "name": "AVM",
       "type": "sensory",
-      "x": 0.63736,
-      "y": 0.75191
+      "x": 0.63986,
+      "y": 0.75909
     },
     {
       "class": "AWA",
       "id": "AWAL",
       "name": "AWAL",
       "type": "sensory",
-      "x": 0.68696,
-      "y": 0.50995
+      "x": 0.67939,
+      "y": 0.4954
     },
     {
       "class": "AWA",
       "id": "AWAR",
       "name": "AWAR",
       "type": "sensory",
-      "x": 0.67224,
-      "y": 0.51716
+      "x": 0.66196,
+      "y": 0.50716
     },
     {
       "class": "AWB",
       "id": "AWBL",
       "name": "AWBL",
       "type": "sensory",
-      "x": 0.63662,
-      "y": 0.57812
+      "x": 0.63808,
+      "y": 0.57039
     },
     {
       "class": "AWB",
       "id": "AWBR",
       "name": "AWBR",
       "type": "sensory",
-      "x": 0.64237,
-      "y": 0.56046
+      "x": 0.63597,
+      "y": 0.55584
     },
     {
       "class": "AWC",
       "id": "AWCL",
       "name": "AWCL",
       "type": "sensory",
-      "x": 0.62661,
-      "y": 0.52527
+      "x": 0.61961,
+      "y": 0.52132
     },
     {
       "class": "AWC",
       "id": "AWCR",
       "name": "AWCR",
       "type": "sensory",
-      "x": 0.60964,
-      "y": 0.5097
+      "x": 0.59847,
+      "y": 0.50729
     },
     {
       "class": "BAG",
       "id": "BAGL",
       "name": "BAGL",
       "type": "sensory",
-      "x": 0.56966,
-      "y": 0.5596
+      "x": 0.56745,
+      "y": 0.56286
     },
     {
       "class": "BAG",
       "id": "BAGR",
       "name": "BAGR",
       "type": "sensory",
-      "x": 0.55181,
-      "y": 0.56132
+      "x": 0.55281,
+      "y": 0.5613
     },
     {
       "class": "BDU",
       "id": "BDUL",
       "name": "BDUL",
       "type": "inter",
-      "x": 0.55371,
-      "y": 0.74266
+      "x": 0.57121,
+      "y": 0.74433
     },
     {
       "class": "BDU",
       "id": "BDUR",
       "name": "BDUR",
       "type": "inter",
-      "x": 0.59662,
-      "y": 0.68281
+      "x": 0.60261,
+      "y": 0.68549
     },
     {
       "class": "CAN",
@@ -24498,471 +24488,471 @@
       "name": "CANL",
       "type": "unknown",
       "x": 0.98,
-      "y": 0.72421
+      "y": 0.67727
     },
     {
       "class": "CAN",
       "id": "CANR",
       "name": "CANR",
       "type": "unknown",
-      "x": 0.97183,
-      "y": 0.75759
+      "x": 0.9756,
+      "y": 0.71657
     },
     {
       "class": "CEP",
       "id": "CEPDL",
       "name": "CEPDL",
       "type": "sensory",
-      "x": 0.50771,
-      "y": 0.59403
+      "x": 0.51022,
+      "y": 0.59894
     },
     {
       "class": "CEP",
       "id": "CEPDR",
       "name": "CEPDR",
       "type": "sensory",
-      "x": 0.51137,
-      "y": 0.57004
+      "x": 0.50346,
+      "y": 0.58231
     },
     {
       "class": "CEP",
       "id": "CEPVL",
       "name": "CEPVL",
       "type": "sensory",
-      "x": 0.45625,
-      "y": 0.63498
+      "x": 0.46523,
+      "y": 0.64107
     },
     {
       "class": "CEP",
       "id": "CEPVR",
       "name": "CEPVR",
       "type": "sensory",
-      "x": 0.54846,
-      "y": 0.57323
+      "x": 0.54358,
+      "y": 0.57954
     },
     {
       "class": "DA01",
       "id": "DA01",
       "name": "DA01",
       "type": "motor",
-      "x": 0.76781,
-      "y": 0.65884
+      "x": 0.76863,
+      "y": 0.65869
     },
     {
       "class": "DA02",
       "id": "DA02",
       "name": "DA02",
       "type": "motor",
-      "x": 0.75514,
-      "y": 0.69607
+      "x": 0.76283,
+      "y": 0.69107
     },
     {
       "class": "DA03",
       "id": "DA03",
       "name": "DA03",
       "type": "motor",
-      "x": 0.77783,
-      "y": 0.7207
+      "x": 0.79001,
+      "y": 0.70881
     },
     {
       "class": "DA04",
       "id": "DA04",
       "name": "DA04",
       "type": "motor",
-      "x": 0.78226,
-      "y": 0.75001
+      "x": 0.78865,
+      "y": 0.75637
     },
     {
       "class": "DA05",
       "id": "DA05",
       "name": "DA05",
       "type": "motor",
-      "x": 0.75569,
-      "y": 0.78012
+      "x": 0.76978,
+      "y": 0.78151
     },
     {
       "class": "DA06",
       "id": "DA06",
       "name": "DA06",
       "type": "motor",
-      "x": 0.79674,
-      "y": 0.79508
+      "x": 0.81492,
+      "y": 0.77938
     },
     {
       "class": "DA07",
       "id": "DA07",
       "name": "DA07",
       "type": "motor",
-      "x": 0.74816,
-      "y": 0.85399
+      "x": 0.76991,
+      "y": 0.84669
     },
     {
       "class": "DA08",
       "id": "DA08",
       "name": "DA08",
       "type": "motor",
-      "x": 0.69258,
-      "y": 0.84469
+      "x": 0.71678,
+      "y": 0.83854
     },
     {
       "class": "DA09",
       "id": "DA09",
       "name": "DA09",
       "type": "motor",
-      "x": 0.65541,
-      "y": 0.85002
+      "x": 0.67032,
+      "y": 0.8521
     },
     {
       "class": "DB01",
       "id": "DB01",
       "name": "DB01",
       "type": "motor",
-      "x": 0.79973,
-      "y": 0.69545
+      "x": 0.80727,
+      "y": 0.68694
     },
     {
       "class": "DB02",
       "id": "DB02",
       "name": "DB02",
       "type": "motor",
-      "x": 0.77365,
-      "y": 0.73669
+      "x": 0.78587,
+      "y": 0.73238
     },
     {
       "class": "DB03",
       "id": "DB03",
       "name": "DB03",
       "type": "motor",
-      "x": 0.73429,
-      "y": 0.77591
+      "x": 0.7477,
+      "y": 0.7672
     },
     {
       "class": "DB04",
       "id": "DB04",
       "name": "DB04",
       "type": "motor",
-      "x": 0.72988,
-      "y": 0.8158
+      "x": 0.75129,
+      "y": 0.80686
     },
     {
       "class": "DB05",
       "id": "DB05",
       "name": "DB05",
       "type": "motor",
-      "x": 0.7612,
-      "y": 0.8251
+      "x": 0.77848,
+      "y": 0.81525
     },
     {
       "class": "DB06",
       "id": "DB06",
       "name": "DB06",
       "type": "motor",
-      "x": 0.75104,
-      "y": 0.90931
+      "x": 0.77155,
+      "y": 0.90615
     },
     {
       "class": "DB07",
       "id": "DB07",
       "name": "DB07",
       "type": "motor",
-      "x": 0.67976,
-      "y": 0.85268
+      "x": 0.70334,
+      "y": 0.8489
     },
     {
       "class": "DD01",
       "id": "DD01",
       "name": "DD01",
       "type": "motor",
-      "x": 0.76782,
-      "y": 0.69136
+      "x": 0.78122,
+      "y": 0.67654
     },
     {
       "class": "DD02",
       "id": "DD02",
       "name": "DD02",
       "type": "motor",
-      "x": 0.83615,
-      "y": 0.73182
+      "x": 0.84838,
+      "y": 0.72011
     },
     {
       "class": "DD03",
       "id": "DD03",
       "name": "DD03",
       "type": "motor",
-      "x": 0.84213,
-      "y": 0.81101
+      "x": 0.86119,
+      "y": 0.7972
     },
     {
       "class": "DD04",
       "id": "DD04",
       "name": "DD04",
       "type": "motor",
-      "x": 0.81616,
-      "y": 0.8859
+      "x": 0.84085,
+      "y": 0.87295
     },
     {
       "class": "DD05",
       "id": "DD05",
       "name": "DD05",
       "type": "motor",
-      "x": 0.76075,
-      "y": 0.92909
+      "x": 0.78815,
+      "y": 0.91789
     },
     {
       "class": "DD06",
       "id": "DD06",
       "name": "DD06",
       "type": "motor",
-      "x": 0.6601,
-      "y": 0.83714
+      "x": 0.6948,
+      "y": 0.8263
     },
     {
       "class": "DVA",
       "id": "DVA",
       "name": "DVA",
       "type": "sensory",
-      "x": 0.62217,
-      "y": 0.72609
+      "x": 0.63241,
+      "y": 0.72547
     },
     {
       "class": "DVB",
       "id": "DVB",
       "name": "DVB",
       "type": "inter",
-      "x": 0.59162,
-      "y": 0.83383
+      "x": 0.63894,
+      "y": 0.82462
     },
     {
       "class": "DVC",
       "id": "DVC",
       "name": "DVC",
       "type": "inter",
-      "x": 0.59775,
-      "y": 0.72321
+      "x": 0.61865,
+      "y": 0.71038
     },
     {
       "class": "FLP",
       "id": "FLPL",
       "name": "FLPL",
       "type": "sensory",
-      "x": 0.63311,
-      "y": 0.66987
+      "x": 0.63805,
+      "y": 0.6695
     },
     {
       "class": "FLP",
       "id": "FLPR",
       "name": "FLPR",
       "type": "sensory",
-      "x": 0.70403,
-      "y": 0.67312
+      "x": 0.71023,
+      "y": 0.67056
     },
     {
       "class": "HSN",
       "id": "HSNL",
       "name": "HSNL",
       "type": "motor",
-      "x": 0.68155,
-      "y": 0.63033
+      "x": 0.68557,
+      "y": 0.6136
     },
     {
       "class": "HSN",
       "id": "HSNR",
       "name": "HSNR",
       "type": "motor",
-      "x": 0.68535,
-      "y": 0.67411
+      "x": 0.69395,
+      "y": 0.66023
     },
     {
       "class": "I1",
       "id": "I1L",
       "name": "I1L",
       "type": "inter",
-      "x": 0.15637,
-      "y": 0.19977
+      "x": 0.15383,
+      "y": 0.20266
     },
     {
       "class": "I1",
       "id": "I1R",
       "name": "I1R",
       "type": "inter",
-      "x": 0.16829,
-      "y": 0.19625
+      "x": 0.16689,
+      "y": 0.19929
     },
     {
       "class": "I2",
       "id": "I2L",
       "name": "I2L",
       "type": "inter",
-      "x": 0.10116,
-      "y": 0.08692
+      "x": 0.10233,
+      "y": 0.09114
     },
     {
       "class": "I2",
       "id": "I2R",
       "name": "I2R",
       "type": "inter",
-      "x": 0.07301,
-      "y": 0.1039
+      "x": 0.07173,
+      "y": 0.10343
     },
     {
       "class": "I3",
       "id": "I3",
       "name": "I3",
       "type": "inter",
-      "x": 0.09165,
-      "y": 0.12161
+      "x": 0.08853,
+      "y": 0.12388
     },
     {
       "class": "I4",
       "id": "I4",
       "name": "I4",
       "type": "inter",
-      "x": 0.0331,
-      "y": 0.05648
+      "x": 0.03147,
+      "y": 0.0623
     },
     {
       "class": "I5",
       "id": "I5",
       "name": "I5",
       "type": "inter",
-      "x": 0.08903,
-      "y": 0.09436
+      "x": 0.08457,
+      "y": 0.09684
     },
     {
       "class": "I6",
       "id": "I6",
       "name": "I6",
       "type": "inter",
-      "x": 0.05011,
-      "y": 0.10862
+      "x": 0.10763,
+      "y": 0.06753
     },
     {
       "class": "IL1",
       "id": "IL1DL",
       "name": "IL1DL",
       "type": "sensory",
-      "x": 0.37873,
-      "y": 0.55862
+      "x": 0.3776,
+      "y": 0.58195
     },
     {
       "class": "IL1",
       "id": "IL1DR",
       "name": "IL1DR",
       "type": "sensory",
-      "x": 0.44658,
-      "y": 0.5444
+      "x": 0.4388,
+      "y": 0.56002
     },
     {
       "class": "IL1",
       "id": "IL1L",
       "name": "IL1L",
       "type": "sensory",
-      "x": 0.42248,
-      "y": 0.59059
+      "x": 0.42881,
+      "y": 0.59483
     },
     {
       "class": "IL1",
       "id": "IL1R",
       "name": "IL1R",
       "type": "sensory",
-      "x": 0.46834,
-      "y": 0.556
+      "x": 0.46541,
+      "y": 0.56823
     },
     {
       "class": "IL1",
       "id": "IL1VL",
       "name": "IL1VL",
       "type": "sensory",
-      "x": 0.40313,
-      "y": 0.64198
+      "x": 0.41757,
+      "y": 0.64558
     },
     {
       "class": "IL1",
       "id": "IL1VR",
       "name": "IL1VR",
       "type": "sensory",
-      "x": 0.42669,
-      "y": 0.54362
+      "x": 0.41651,
+      "y": 0.56637
     },
     {
       "class": "IL2",
       "id": "IL2DL",
       "name": "IL2DL",
       "type": "sensory",
-      "x": 0.41872,
-      "y": 0.56721
+      "x": 0.41293,
+      "y": 0.58601
     },
     {
       "class": "IL2",
       "id": "IL2DR",
       "name": "IL2DR",
       "type": "sensory",
-      "x": 0.39619,
-      "y": 0.49529
+      "x": 0.39137,
+      "y": 0.50734
     },
     {
       "class": "IL2",
       "id": "IL2L",
       "name": "IL2L",
       "type": "sensory",
-      "x": 0.48899,
-      "y": 0.56897
+      "x": 0.50605,
+      "y": 0.56142
     },
     {
       "class": "IL2",
       "id": "IL2R",
       "name": "IL2R",
       "type": "sensory",
-      "x": 0.51674,
-      "y": 0.52317
+      "x": 0.50875,
+      "y": 0.52976
     },
     {
       "class": "IL2",
       "id": "IL2VL",
       "name": "IL2VL",
       "type": "sensory",
-      "x": 0.39752,
-      "y": 0.57174
+      "x": 0.42463,
+      "y": 0.54115
     },
     {
       "class": "IL2",
       "id": "IL2VR",
       "name": "IL2VR",
       "type": "sensory",
-      "x": 0.48064,
-      "y": 0.53282
+      "x": 0.47227,
+      "y": 0.54493
     },
     {
       "class": "LUA",
       "id": "LUAL",
       "name": "LUAL",
       "type": "inter",
-      "x": 0.63301,
-      "y": 0.79868
+      "x": 0.65017,
+      "y": 0.79663
     },
     {
       "class": "LUA",
       "id": "LUAR",
       "name": "LUAR",
       "type": "inter",
-      "x": 0.61958,
-      "y": 0.80292
+      "x": 0.63786,
+      "y": 0.80422
     },
     {
       "class": "M1",
       "id": "M1",
       "name": "M1",
       "type": "motor",
-      "x": 0.14292,
-      "y": 0.15607
+      "x": 0.14157,
+      "y": 0.15729
     },
     {
       "class": "M2",
       "id": "M2L",
       "name": "M2L",
       "type": "motor",
-      "x": 0.06499,
-      "y": 0.07737
+      "x": 0.04298,
+      "y": 0.10596
     },
     {
       "class": "M2",
@@ -24970,38 +24960,38 @@
       "name": "M2R",
       "type": "motor",
       "x": 0.02,
-      "y": 0.08522
+      "y": 0.0877
     },
     {
       "class": "M3",
       "id": "M3L",
       "name": "M3L",
       "type": "motor",
-      "x": 0.0326,
-      "y": 0.10676
+      "x": 0.06595,
+      "y": 0.07778
     },
     {
       "class": "M3",
       "id": "M3R",
       "name": "M3R",
       "type": "motor",
-      "x": 0.08268,
-      "y": 0.06554
+      "x": 0.05033,
+      "y": 0.08975
     },
     {
       "class": "M4",
       "id": "M4",
       "name": "M4",
       "type": "motor",
-      "x": 0.0528,
-      "y": 0.0422
+      "x": 0.04149,
+      "y": 0.04851
     },
     {
       "class": "M5",
       "id": "M5",
       "name": "M5",
       "type": "motor",
-      "x": 0.0894,
+      "x": 0.08374,
       "y": 0.02
     },
     {
@@ -25009,1256 +24999,1248 @@
       "id": "MCL",
       "name": "MCL",
       "type": "motor",
-      "x": 0.11644,
-      "y": 0.06653
+      "x": 0.02575,
+      "y": 0.12591
     },
     {
       "class": "MC",
       "id": "MCR",
       "name": "MCR",
       "type": "motor",
-      "x": 0.02437,
-      "y": 0.14183
+      "x": 0.02479,
+      "y": 0.14885
     },
     {
       "class": "MI",
       "id": "MI",
       "name": "MI",
       "type": "motor",
-      "x": 0.07208,
-      "y": 0.12118
+      "x": 0.06748,
+      "y": 0.12467
     },
     {
       "class": "NSM",
       "id": "NSML",
       "name": "NSML",
       "type": "motor",
-      "x": 0.07196,
-      "y": 0.08959
+      "x": 0.08933,
+      "y": 0.07527
     },
     {
       "class": "NSM",
       "id": "NSMR",
       "name": "NSMR",
       "type": "motor",
-      "x": 0.04345,
-      "y": 0.07073
+      "x": 0.06583,
+      "y": 0.05491
     },
     {
       "class": "OLL",
       "id": "OLLL",
       "name": "OLLL",
       "type": "sensory",
-      "x": 0.44185,
-      "y": 0.61235
+      "x": 0.44492,
+      "y": 0.62862
     },
     {
       "class": "OLL",
       "id": "OLLR",
       "name": "OLLR",
       "type": "sensory",
-      "x": 0.49865,
-      "y": 0.57265
+      "x": 0.49133,
+      "y": 0.58229
     },
     {
       "class": "OLQ",
       "id": "OLQDL",
       "name": "OLQDL",
       "type": "sensory",
-      "x": 0.40797,
-      "y": 0.60076
+      "x": 0.41316,
+      "y": 0.61509
     },
     {
       "class": "OLQ",
       "id": "OLQDR",
       "name": "OLQDR",
       "type": "sensory",
-      "x": 0.4831,
-      "y": 0.52034
+      "x": 0.47574,
+      "y": 0.53058
     },
     {
       "class": "OLQ",
       "id": "OLQVL",
       "name": "OLQVL",
       "type": "sensory",
-      "x": 0.47108,
-      "y": 0.634
+      "x": 0.49334,
+      "y": 0.60953
     },
     {
       "class": "OLQ",
       "id": "OLQVR",
       "name": "OLQVR",
       "type": "sensory",
-      "x": 0.50091,
-      "y": 0.52377
+      "x": 0.492,
+      "y": 0.5329
     },
     {
       "class": "PDA",
       "id": "PDA",
       "name": "PDA",
       "type": "motor",
-      "x": 0.62176,
-      "y": 0.88675
+      "x": 0.66117,
+      "y": 0.88235
     },
     {
       "class": "PDB",
       "id": "PDB",
       "name": "PDB",
       "type": "motor",
-      "x": 0.58246,
-      "y": 0.87226
+      "x": 0.62001,
+      "y": 0.87544
     },
     {
       "class": "PDE",
       "id": "PDEL",
       "name": "PDEL",
       "type": "sensory",
-      "x": 0.60339,
-      "y": 0.82153
+      "x": 0.60834,
+      "y": 0.83181
     },
     {
       "class": "PDE",
       "id": "PDER",
       "name": "PDER",
       "type": "sensory",
-      "x": 0.6353,
-      "y": 0.82322
+      "x": 0.65212,
+      "y": 0.82179
     },
     {
       "class": "PHA",
       "id": "PHAL",
       "name": "PHAL",
       "type": "sensory",
-      "x": 0.58214,
-      "y": 0.79726
+      "x": 0.60965,
+      "y": 0.79485
     },
     {
       "class": "PHA",
       "id": "PHAR",
       "name": "PHAR",
       "type": "sensory",
-      "x": 0.57025,
-      "y": 0.80621
+      "x": 0.59751,
+      "y": 0.80522
     },
     {
       "class": "PHB",
       "id": "PHBL",
       "name": "PHBL",
       "type": "sensory",
-      "x": 0.60442,
-      "y": 0.79786
+      "x": 0.62627,
+      "y": 0.79735
     },
     {
       "class": "PHB",
       "id": "PHBR",
       "name": "PHBR",
       "type": "sensory",
-      "x": 0.59206,
-      "y": 0.81445
+      "x": 0.61487,
+      "y": 0.8177
     },
     {
       "class": "PHC",
       "id": "PHCL",
       "name": "PHCL",
       "type": "sensory",
-      "x": 0.56059,
-      "y": 0.84246
+      "x": 0.58597,
+      "y": 0.84622
     },
     {
       "class": "PHC",
       "id": "PHCR",
       "name": "PHCR",
       "type": "sensory",
-      "x": 0.61027,
-      "y": 0.83327
+      "x": 0.62599,
+      "y": 0.83604
     },
     {
       "class": "PLM",
       "id": "PLML",
       "name": "PLML",
       "type": "sensory",
-      "x": 0.59607,
-      "y": 0.84753
+      "x": 0.61674,
+      "y": 0.85042
     },
     {
       "class": "PLM",
       "id": "PLMR",
       "name": "PLMR",
       "type": "sensory",
-      "x": 0.55058,
-      "y": 0.80625
+      "x": 0.5701,
+      "y": 0.81509
     },
     {
       "class": "PLN",
       "id": "PLNL",
       "name": "PLNL",
       "type": "sensory",
-      "x": 0.45322,
-      "y": 0.77795
+      "x": 0.47493,
+      "y": 0.79211
     },
     {
       "class": "PLN",
       "id": "PLNR",
       "name": "PLNR",
       "type": "sensory",
-      "x": 0.47033,
-      "y": 0.74462
+      "x": 0.48593,
+      "y": 0.76262
     },
     {
       "class": "PQ",
       "id": "PQR",
       "name": "PQR",
       "type": "sensory",
-      "x": 0.68013,
-      "y": 0.7992
+      "x": 0.70074,
+      "y": 0.79177
     },
     {
       "class": "PVC",
       "id": "PVCL",
       "name": "PVCL",
       "type": "inter",
-      "x": 0.66078,
-      "y": 0.75975
+      "x": 0.67463,
+      "y": 0.75728
     },
     {
       "class": "PVC",
       "id": "PVCR",
       "name": "PVCR",
       "type": "inter",
-      "x": 0.65953,
-      "y": 0.77135
+      "x": 0.67129,
+      "y": 0.76939
     },
     {
       "class": "PV",
       "id": "PVDL",
       "name": "PVDL",
       "type": "sensory",
-      "x": 0.76412,
-      "y": 0.79199
+      "x": 0.76675,
+      "y": 0.7691
     },
     {
       "class": "PV",
       "id": "PVDR",
       "name": "PVDR",
       "type": "sensory",
-      "x": 0.74754,
-      "y": 0.79273
+      "x": 0.75013,
+      "y": 0.77715
     },
     {
       "class": "PVM",
       "id": "PVM",
       "name": "PVM",
       "type": "sensory",
-      "x": 0.57486,
-      "y": 0.81896
+      "x": 0.59102,
+      "y": 0.82286
     },
     {
       "class": "PVN",
       "id": "PVNL",
       "name": "PVNL",
       "type": "inter",
-      "x": 0.65116,
-      "y": 0.78205
+      "x": 0.6776,
+      "y": 0.7773
     },
     {
       "class": "PVN",
       "id": "PVNR",
       "name": "PVNR",
       "type": "inter",
-      "x": 0.68194,
-      "y": 0.75577
+      "x": 0.69908,
+      "y": 0.74547
     },
     {
       "class": "PVP",
       "id": "PVPL",
       "name": "PVPL",
       "type": "inter",
-      "x": 0.6197,
-      "y": 0.74244
+      "x": 0.63768,
+      "y": 0.73711
     },
     {
       "class": "PVP",
       "id": "PVPR",
       "name": "PVPR",
       "type": "inter",
-      "x": 0.65678,
-      "y": 0.71122
+      "x": 0.67296,
+      "y": 0.70325
     },
     {
       "class": "PVQ",
       "id": "PVQL",
       "name": "PVQL",
       "type": "inter",
-      "x": 0.65966,
-      "y": 0.67492
+      "x": 0.67682,
+      "y": 0.6571
     },
     {
       "class": "PVQ",
       "id": "PVQR",
       "name": "PVQR",
       "type": "inter",
-      "x": 0.67447,
-      "y": 0.68783
+      "x": 0.68678,
+      "y": 0.67831
     },
     {
       "class": "P",
       "id": "PVR",
       "name": "PVR",
       "type": "inter",
-      "x": 0.58284,
-      "y": 0.71947
+      "x": 0.59439,
+      "y": 0.72103
     },
     {
       "class": "PVT",
       "id": "PVT",
       "name": "PVT",
       "type": "inter",
-      "x": 0.60953,
-      "y": 0.73954
+      "x": 0.62962,
+      "y": 0.73258
     },
     {
       "class": "PVW",
       "id": "PVWL",
       "name": "PVWL",
       "type": "inter",
-      "x": 0.61386,
-      "y": 0.84919
+      "x": 0.64988,
+      "y": 0.84598
     },
     {
       "class": "PVW",
       "id": "PVWR",
       "name": "PVWR",
       "type": "inter",
-      "x": 0.65843,
-      "y": 0.81079
+      "x": 0.66363,
+      "y": 0.80644
     },
     {
       "class": "RIA",
       "id": "RIAL",
       "name": "RIAL",
       "type": "inter",
-      "x": 0.54204,
-      "y": 0.60988
+      "x": 0.54391,
+      "y": 0.61153
     },
     {
       "class": "RIA",
       "id": "RIAR",
       "name": "RIAR",
       "type": "inter",
-      "x": 0.55572,
-      "y": 0.60733
+      "x": 0.55634,
+      "y": 0.61294
     },
     {
       "class": "RIB",
       "id": "RIBL",
       "name": "RIBL",
       "type": "inter",
-      "x": 0.53565,
-      "y": 0.63034
+      "x": 0.54478,
+      "y": 0.62956
     },
     {
       "class": "RIB",
       "id": "RIBR",
       "name": "RIBR",
       "type": "inter",
-      "x": 0.55111,
-      "y": 0.59798
+      "x": 0.55028,
+      "y": 0.60314
     },
     {
       "class": "RIC",
       "id": "RICL",
       "name": "RICL",
       "type": "inter",
-      "x": 0.51985,
-      "y": 0.616
+      "x": 0.52554,
+      "y": 0.61912
     },
     {
       "class": "RIC",
       "id": "RICR",
       "name": "RICR",
       "type": "inter",
-      "x": 0.53254,
-      "y": 0.61723
+      "x": 0.53578,
+      "y": 0.62266
     },
     {
       "class": "RI",
       "id": "RID",
       "name": "RID",
       "type": "inter",
-      "x": 0.67223,
-      "y": 0.70005
+      "x": 0.68135,
+      "y": 0.69525
     },
     {
       "class": "RIF",
       "id": "RIFL",
       "name": "RIFL",
       "type": "inter",
-      "x": 0.65736,
-      "y": 0.65608
+      "x": 0.66336,
+      "y": 0.6477
     },
     {
       "class": "RIF",
       "id": "RIFR",
       "name": "RIFR",
       "type": "inter",
-      "x": 0.65007,
-      "y": 0.63436
+      "x": 0.65239,
+      "y": 0.62911
     },
     {
       "class": "RIG",
       "id": "RIGL",
       "name": "RIGL",
       "type": "inter",
-      "x": 0.55506,
-      "y": 0.63423
+      "x": 0.56227,
+      "y": 0.63406
     },
     {
       "class": "RIG",
       "id": "RIGR",
       "name": "RIGR",
       "type": "inter",
-      "x": 0.59362,
-      "y": 0.61272
+      "x": 0.59358,
+      "y": 0.61107
     },
     {
       "class": "RIH",
       "id": "RIH",
       "name": "RIH",
       "type": "inter",
-      "x": 0.49716,
-      "y": 0.5619
+      "x": 0.49679,
+      "y": 0.56812
     },
     {
       "class": "RIM",
       "id": "RIML",
       "name": "RIML",
       "type": "inter",
-      "x": 0.56936,
-      "y": 0.6632
+      "x": 0.57607,
+      "y": 0.66478
     },
     {
       "class": "RIM",
       "id": "RIMR",
       "name": "RIMR",
       "type": "inter",
-      "x": 0.57998,
-      "y": 0.6631
+      "x": 0.58623,
+      "y": 0.66625
     },
     {
       "class": "RIP",
       "id": "RIPL",
       "name": "RIPL",
       "type": "inter",
-      "x": 0.40674,
-      "y": 0.48585
+      "x": 0.40941,
+      "y": 0.48728
     },
     {
       "class": "RIP",
       "id": "RIPR",
       "name": "RIPR",
       "type": "inter",
-      "x": 0.45858,
-      "y": 0.49392
+      "x": 0.45712,
+      "y": 0.49874
     },
     {
       "class": "RI",
       "id": "RIR",
       "name": "RIR",
       "type": "inter",
-      "x": 0.62427,
-      "y": 0.59945
+      "x": 0.62171,
+      "y": 0.60123
     },
     {
       "class": "RIS",
       "id": "RIS",
       "name": "RIS",
       "type": "inter",
-      "x": 0.54064,
-      "y": 0.65469
+      "x": 0.54852,
+      "y": 0.66009
     },
     {
       "class": "RI",
       "id": "RIVL",
       "name": "RIVL",
       "type": "motor",
-      "x": 0.4835,
-      "y": 0.59712
+      "x": 0.47138,
+      "y": 0.62885
     },
     {
       "class": "RI",
       "id": "RIVR",
       "name": "RIVR",
       "type": "motor",
-      "x": 0.47248,
-      "y": 0.62204
+      "x": 0.48575,
+      "y": 0.62822
     },
     {
       "class": "RMD",
       "id": "RMDDL",
       "name": "RMDDL",
       "type": "motor",
-      "x": 0.47445,
-      "y": 0.60843
+      "x": 0.48007,
+      "y": 0.61488
     },
     {
       "class": "RMD",
       "id": "RMDDR",
       "name": "RMDDR",
       "type": "motor",
-      "x": 0.4589,
-      "y": 0.60613
+      "x": 0.45951,
+      "y": 0.62249
     },
     {
       "class": "RM",
       "id": "RMDL",
       "name": "RMDL",
       "type": "motor",
-      "x": 0.48541,
-      "y": 0.62855
+      "x": 0.48875,
+      "y": 0.63973
     },
     {
       "class": "RM",
       "id": "RMDR",
       "name": "RMDR",
       "type": "motor",
-      "x": 0.52132,
-      "y": 0.62865
+      "x": 0.52195,
+      "y": 0.63402
     },
     {
       "class": "RMD",
       "id": "RMDVL",
       "name": "RMDVL",
       "type": "motor",
-      "x": 0.46751,
-      "y": 0.58987
+      "x": 0.46731,
+      "y": 0.60659
     },
     {
       "class": "RMD",
       "id": "RMDVR",
       "name": "RMDVR",
       "type": "motor",
-      "x": 0.50259,
-      "y": 0.60798
+      "x": 0.5024,
+      "y": 0.62043
     },
     {
       "class": "RME",
       "id": "RMED",
       "name": "RMED",
       "type": "motor",
-      "x": 0.45417,
-      "y": 0.56733
+      "x": 0.45541,
+      "y": 0.57627
     },
     {
       "class": "RME",
       "id": "RMEL",
       "name": "RMEL",
       "type": "motor",
-      "x": 0.38528,
-      "y": 0.52969
+      "x": 0.38182,
+      "y": 0.54296
     },
     {
       "class": "RME",
       "id": "RMER",
       "name": "RMER",
       "type": "motor",
-      "x": 0.40466,
-      "y": 0.52879
+      "x": 0.40036,
+      "y": 0.53955
     },
     {
       "class": "RME",
       "id": "RMEV",
       "name": "RMEV",
       "type": "motor",
-      "x": 0.47008,
-      "y": 0.58024
+      "x": 0.47354,
+      "y": 0.58933
     },
     {
       "class": "RMF",
       "id": "RMFL",
       "name": "RMFL",
       "type": "inter",
-      "x": 0.56544,
-      "y": 0.6529
+      "x": 0.56525,
+      "y": 0.66103
     },
     {
       "class": "RMF",
       "id": "RMFR",
       "name": "RMFR",
       "type": "inter",
-      "x": 0.47083,
-      "y": 0.70979
+      "x": 0.48296,
+      "y": 0.72092
     },
     {
       "class": "RMG",
       "id": "RMGL",
       "name": "RMGL",
       "type": "inter",
-      "x": 0.55326,
-      "y": 0.64796
+      "x": 0.5609,
+      "y": 0.64776
     },
     {
       "class": "RMG",
       "id": "RMGR",
       "name": "RMGR",
       "type": "inter",
-      "x": 0.57796,
-      "y": 0.64302
+      "x": 0.58408,
+      "y": 0.64171
     },
     {
       "class": "RMH",
       "id": "RMHL",
       "name": "RMHL",
       "type": "motor",
-      "x": 0.46718,
-      "y": 0.6478
+      "x": 0.47052,
+      "y": 0.65766
     },
     {
       "class": "RMH",
       "id": "RMHR",
       "name": "RMHR",
       "type": "motor",
-      "x": 0.449,
-      "y": 0.59514
+      "x": 0.44755,
+      "y": 0.61093
     },
     {
       "class": "SAA",
       "id": "SAADL",
       "name": "SAADL",
       "type": "inter",
-      "x": 0.51683,
-      "y": 0.69482
+      "x": 0.52581,
+      "y": 0.70344
     },
     {
       "class": "SAA",
       "id": "SAADR",
       "name": "SAADR",
       "type": "inter",
-      "x": 0.53003,
-      "y": 0.68924
+      "x": 0.53875,
+      "y": 0.70377
     },
     {
       "class": "SAA",
       "id": "SAAVL",
       "name": "SAAVL",
       "type": "inter",
-      "x": 0.50689,
-      "y": 0.65422
+      "x": 0.50321,
+      "y": 0.676
     },
     {
       "class": "SAA",
       "id": "SAAVR",
       "name": "SAAVR",
       "type": "inter",
-      "x": 0.54457,
-      "y": 0.62684
+      "x": 0.54196,
+      "y": 0.64241
     },
     {
       "class": "SAB",
       "id": "SABD",
       "name": "SABD",
       "type": "motor",
-      "x": 0.60969,
-      "y": 0.70676
+      "x": 0.61044,
+      "y": 0.74141
     },
     {
       "class": "SAB",
       "id": "SABVL",
       "name": "SABVL",
       "type": "motor",
-      "x": 0.731,
-      "y": 0.6739
+      "x": 0.73483,
+      "y": 0.63828
     },
     {
       "class": "SAB",
       "id": "SABVR",
       "name": "SABVR",
       "type": "motor",
-      "x": 0.7514,
-      "y": 0.64623
+      "x": 0.76941,
+      "y": 0.63904
     },
     {
       "class": "SDQ",
       "id": "SDQL",
       "name": "SDQL",
       "type": "sensory",
-      "x": 0.56876,
-      "y": 0.69247
+      "x": 0.56954,
+      "y": 0.70978
     },
     {
       "class": "SDQ",
       "id": "SDQR",
       "name": "SDQR",
       "type": "sensory",
-      "x": 0.50765,
-      "y": 0.70973
+      "x": 0.5268,
+      "y": 0.7176
     },
     {
       "class": "SIA",
       "id": "SIADL",
       "name": "SIADL",
       "type": "motor",
-      "x": 0.48851,
-      "y": 0.69645
+      "x": 0.49622,
+      "y": 0.69757
     },
     {
       "class": "SIA",
       "id": "SIADR",
       "name": "SIADR",
       "type": "motor",
-      "x": 0.49456,
-      "y": 0.64969
+      "x": 0.49728,
+      "y": 0.66215
     },
     {
       "class": "SIA",
       "id": "SIAVL",
       "name": "SIAVL",
       "type": "motor",
-      "x": 0.45491,
-      "y": 0.68811
+      "x": 0.46632,
+      "y": 0.69626
     },
     {
       "class": "SIA",
       "id": "SIAVR",
       "name": "SIAVR",
       "type": "motor",
-      "x": 0.46609,
-      "y": 0.67154
+      "x": 0.47432,
+      "y": 0.68698
     },
     {
       "class": "SIB",
       "id": "SIBDL",
       "name": "SIBDL",
       "type": "motor",
-      "x": 0.49936,
-      "y": 0.73926
+      "x": 0.51318,
+      "y": 0.7441
     },
     {
       "class": "SIB",
       "id": "SIBDR",
       "name": "SIBDR",
       "type": "motor",
-      "x": 0.47614,
-      "y": 0.65926
+      "x": 0.47976,
+      "y": 0.67275
     },
     {
       "class": "SIB",
       "id": "SIBVL",
       "name": "SIBVL",
       "type": "motor",
-      "x": 0.52063,
-      "y": 0.72605
+      "x": 0.53347,
+      "y": 0.7363
     },
     {
       "class": "SIB",
       "id": "SIBVR",
       "name": "SIBVR",
       "type": "motor",
-      "x": 0.51438,
-      "y": 0.67686
+      "x": 0.51417,
+      "y": 0.69008
     },
     {
       "class": "SMB",
       "id": "SMBDL",
       "name": "SMBDL",
       "type": "motor",
-      "x": 0.49426,
-      "y": 0.66136
+      "x": 0.51045,
+      "y": 0.66166
     },
     {
       "class": "SMB",
       "id": "SMBDR",
       "name": "SMBDR",
       "type": "motor",
-      "x": 0.51005,
-      "y": 0.66398
+      "x": 0.51619,
+      "y": 0.67289
     },
     {
       "class": "SMB",
       "id": "SMBVL",
       "name": "SMBVL",
       "type": "motor",
-      "x": 0.55074,
-      "y": 0.68543
+      "x": 0.56397,
+      "y": 0.68698
     },
     {
       "class": "SMB",
       "id": "SMBVR",
       "name": "SMBVR",
       "type": "motor",
-      "x": 0.55022,
-      "y": 0.66349
+      "x": 0.55451,
+      "y": 0.67072
     },
     {
       "class": "SMD",
       "id": "SMDDL",
       "name": "SMDDL",
       "type": "motor",
-      "x": 0.493,
-      "y": 0.63842
+      "x": 0.49785,
+      "y": 0.64768
     },
     {
       "class": "SMD",
       "id": "SMDDR",
       "name": "SMDDR",
       "type": "motor",
-      "x": 0.53115,
-      "y": 0.59965
+      "x": 0.53373,
+      "y": 0.60735
     },
     {
       "class": "SMD",
       "id": "SMDVL",
       "name": "SMDVL",
       "type": "motor",
-      "x": 0.50933,
-      "y": 0.63761
+      "x": 0.51312,
+      "y": 0.64728
     },
     {
       "class": "SMD",
       "id": "SMDVR",
       "name": "SMDVR",
       "type": "motor",
-      "x": 0.52168,
-      "y": 0.65066
+      "x": 0.52774,
+      "y": 0.66152
     },
     {
       "class": "URA",
       "id": "URADL",
       "name": "URADL",
       "type": "motor",
-      "x": 0.36781,
-      "y": 0.61496
+      "x": 0.37421,
+      "y": 0.63036
     },
     {
       "class": "URA",
       "id": "URADR",
       "name": "URADR",
       "type": "motor",
-      "x": 0.45649,
-      "y": 0.47031
+      "x": 0.44137,
+      "y": 0.48332
     },
     {
       "class": "URA",
       "id": "URAVL",
       "name": "URAVL",
       "type": "motor",
-      "x": 0.4348,
-      "y": 0.62303
+      "x": 0.45551,
+      "y": 0.59977
     },
     {
       "class": "URA",
       "id": "URAVR",
       "name": "URAVR",
       "type": "motor",
-      "x": 0.4628,
-      "y": 0.52559
+      "x": 0.45573,
+      "y": 0.5387
     },
     {
       "class": "URB",
       "id": "URBL",
       "name": "URBL",
       "type": "inter",
-      "x": 0.50004,
-      "y": 0.62236
+      "x": 0.51104,
+      "y": 0.61604
     },
     {
       "class": "URB",
       "id": "URBR",
       "name": "URBR",
       "type": "inter",
-      "x": 0.52878,
-      "y": 0.58462
+      "x": 0.52648,
+      "y": 0.59177
     },
     {
       "class": "URX",
       "id": "URXL",
       "name": "URXL",
       "type": "sensory",
-      "x": 0.57687,
-      "y": 0.62297
+      "x": 0.58339,
+      "y": 0.62442
     },
     {
       "class": "URX",
       "id": "URXR",
       "name": "URXR",
       "type": "sensory",
-      "x": 0.56938,
-      "y": 0.59732
+      "x": 0.56875,
+      "y": 0.60023
     },
     {
       "class": "URY",
       "id": "URYDL",
       "name": "URYDL",
       "type": "sensory",
-      "x": 0.48685,
-      "y": 0.61471
+      "x": 0.48052,
+      "y": 0.65479
     },
     {
       "class": "URY",
       "id": "URYDR",
       "name": "URYDR",
       "type": "sensory",
-      "x": 0.53658,
-      "y": 0.55905
+      "x": 0.53323,
+      "y": 0.56625
     },
     {
       "class": "URY",
       "id": "URYVL",
       "name": "URYVL",
       "type": "sensory",
-      "x": 0.50563,
-      "y": 0.68379
+      "x": 0.52643,
+      "y": 0.68477
     },
     {
       "class": "URY",
       "id": "URYVR",
       "name": "URYVR",
       "type": "sensory",
-      "x": 0.53945,
-      "y": 0.60362
+      "x": 0.5327,
+      "y": 0.63468
     },
     {
       "class": "VA01",
       "id": "VA01",
       "name": "VA01",
       "type": "motor",
-      "x": 0.76157,
-      "y": 0.63271
+      "x": 0.7609,
+      "y": 0.62384
     },
     {
       "class": "VA02",
       "id": "VA02",
       "name": "VA02",
       "type": "motor",
-      "x": 0.71671,
-      "y": 0.70578
+      "x": 0.72436,
+      "y": 0.70973
     },
     {
       "class": "VA03",
       "id": "VA03",
       "name": "VA03",
       "type": "motor",
-      "x": 0.77059,
-      "y": 0.67786
+      "x": 0.77091,
+      "y": 0.6822
     },
     {
       "class": "VA04",
       "id": "VA04",
       "name": "VA04",
       "type": "motor",
-      "x": 0.77519,
-      "y": 0.70674
+      "x": 0.77212,
+      "y": 0.71371
     },
     {
       "class": "VA05",
       "id": "VA05",
       "name": "VA05",
       "type": "motor",
-      "x": 0.82561,
-      "y": 0.74644
+      "x": 0.83737,
+      "y": 0.73565
     },
     {
       "class": "VA06",
       "id": "VA06",
       "name": "VA06",
       "type": "motor",
-      "x": 0.79465,
-      "y": 0.76726
+      "x": 0.80747,
+      "y": 0.75941
     },
     {
       "class": "VA07",
       "id": "VA07",
       "name": "VA07",
       "type": "motor",
-      "x": 0.83749,
-      "y": 0.79333
+      "x": 0.84858,
+      "y": 0.78554
     },
     {
       "class": "VA08",
       "id": "VA08",
       "name": "VA08",
       "type": "motor",
-      "x": 0.79883,
-      "y": 0.84297
+      "x": 0.81602,
+      "y": 0.8348
     },
     {
       "class": "VA09",
       "id": "VA09",
       "name": "VA09",
       "type": "motor",
-      "x": 0.72839,
-      "y": 0.89565
+      "x": 0.75167,
+      "y": 0.88967
     },
     {
       "class": "VA10",
       "id": "VA10",
       "name": "VA10",
       "type": "motor",
-      "x": 0.72021,
-      "y": 0.87872
+      "x": 0.74471,
+      "y": 0.87208
     },
     {
       "class": "VA11",
       "id": "VA11",
       "name": "VA11",
       "type": "motor",
-      "x": 0.68342,
-      "y": 0.86999
+      "x": 0.70428,
+      "y": 0.86775
     },
     {
       "class": "VA12",
       "id": "VA12",
       "name": "VA12",
       "type": "motor",
-      "x": 0.66832,
-      "y": 0.84154
+      "x": 0.67838,
+      "y": 0.84467
     },
     {
       "class": "VB01",
       "id": "VB01",
       "name": "VB01",
       "type": "motor",
-      "x": 0.66432,
-      "y": 0.66867
+      "x": 0.66308,
+      "y": 0.67516
     },
     {
       "class": "VB02",
       "id": "VB02",
       "name": "VB02",
       "type": "motor",
-      "x": 0.7602,
-      "y": 0.71496
+      "x": 0.77565,
+      "y": 0.70242
     },
     {
       "class": "VB03",
       "id": "VB03",
       "name": "VB03",
       "type": "motor",
-      "x": 0.81201,
-      "y": 0.73319
+      "x": 0.81854,
+      "y": 0.7311
     },
     {
       "class": "VB04",
       "id": "VB04",
       "name": "VB04",
       "type": "motor",
-      "x": 0.81672,
-      "y": 0.7766
+      "x": 0.82862,
+      "y": 0.76987
     },
     {
       "class": "VB05",
       "id": "VB05",
       "name": "VB05",
       "type": "motor",
-      "x": 0.85503,
-      "y": 0.82752
+      "x": 0.86844,
+      "y": 0.81792
     },
     {
       "class": "VB06",
       "id": "VB06",
       "name": "VB06",
       "type": "motor",
-      "x": 0.77744,
-      "y": 0.83176
+      "x": 0.79322,
+      "y": 0.82344
     },
     {
       "class": "VB07",
       "id": "VB07",
       "name": "VB07",
       "type": "motor",
-      "x": 0.73136,
-      "y": 0.85241
+      "x": 0.75318,
+      "y": 0.84618
     },
     {
       "class": "VB08",
       "id": "VB08",
       "name": "VB08",
       "type": "motor",
-      "x": 0.69339,
-      "y": 0.90617
+      "x": 0.71624,
+      "y": 0.90317
     },
     {
       "class": "VB09",
       "id": "VB09",
       "name": "VB09",
       "type": "motor",
-      "x": 0.67427,
-      "y": 0.93148
+      "x": 0.70163,
+      "y": 0.92838
     },
     {
       "class": "VB10",
       "id": "VB10",
       "name": "VB10",
       "type": "motor",
-      "x": 0.60834,
-      "y": 0.89038
+      "x": 0.64113,
+      "y": 0.89123
     },
     {
       "class": "VB11",
       "id": "VB11",
       "name": "VB11",
       "type": "motor",
-      "x": 0.62465,
-      "y": 0.85726
+      "x": 0.64149,
+      "y": 0.85801
     },
     {
       "class": "VC01",
       "id": "VC01",
       "name": "VC01",
       "type": "motor",
-      "x": 0.7583,
-      "y": 0.73969
+      "x": 0.78037,
+      "y": 0.72368
     },
     {
       "class": "VC02",
       "id": "VC02",
       "name": "VC02",
       "type": "motor",
-      "x": 0.74999,
-      "y": 0.75184
+      "x": 0.76608,
+      "y": 0.74107
     },
     {
       "class": "VC03",
       "id": "VC03",
       "name": "VC03",
       "type": "motor",
-      "x": 0.76258,
-      "y": 0.76125
+      "x": 0.78205,
+      "y": 0.74134
     },
     {
       "class": "VC04",
       "id": "VC04",
       "name": "VC04",
       "type": "motor",
-      "x": 0.75168,
-      "y": 0.80358
+      "x": 0.81319,
+      "y": 0.64037
     },
     {
       "class": "VC05",
       "id": "VC05",
       "name": "VC05",
       "type": "motor",
-      "x": 0.70373,
-      "y": 0.75242
+      "x": 0.73628,
+      "y": 0.68504
     },
     {
       "class": "VC06",
       "id": "VC06",
       "name": "VC06",
       "type": "motor",
-      "x": 0.63696,
-      "y": 0.88047
+      "x": 0.73339,
+      "y": 0.82806
     },
     {
       "class": "VD01",
       "id": "VD01",
       "name": "VD01",
       "type": "motor",
-      "x": 0.72708,
-      "y": 0.6556
+      "x": 0.73408,
+      "y": 0.6512
     },
     {
       "class": "VD02",
       "id": "VD02",
       "name": "VD02",
       "type": "motor",
-      "x": 0.80724,
-      "y": 0.66217
+      "x": 0.81534,
+      "y": 0.65541
     },
     {
       "class": "VD03",
       "id": "VD03",
       "name": "VD03",
       "type": "motor",
-      "x": 0.83256,
-      "y": 0.6948
+      "x": 0.84318,
+      "y": 0.68393
     },
     {
       "class": "VD04",
       "id": "VD04",
       "name": "VD04",
       "type": "motor",
-      "x": 0.85873,
-      "y": 0.76127
+      "x": 0.87143,
+      "y": 0.75056
     },
     {
       "class": "VD05",
       "id": "VD05",
       "name": "VD05",
       "type": "motor",
-      "x": 0.83283,
-      "y": 0.76841
+      "x": 0.84496,
+      "y": 0.75981
     },
     {
       "class": "VD06",
       "id": "VD06",
       "name": "VD06",
       "type": "motor",
-      "x": 0.79858,
-      "y": 0.82249
+      "x": 0.81455,
+      "y": 0.81357
     },
     {
       "class": "VD07",
       "id": "VD07",
       "name": "VD07",
       "type": "motor",
-      "x": 0.83804,
-      "y": 0.87359
+      "x": 0.86015,
+      "y": 0.86076
     },
     {
       "class": "VD08",
       "id": "VD08",
       "name": "VD08",
       "type": "motor",
-      "x": 0.77743,
-      "y": 0.92134
+      "x": 0.80451,
+      "y": 0.91305
     },
     {
       "class": "VD09",
       "id": "VD09",
       "name": "VD09",
       "type": "motor",
-      "x": 0.71093,
-      "y": 0.91477
+      "x": 0.73534,
+      "y": 0.90738
     },
     {
       "class": "VD10",
       "id": "VD10",
       "name": "VD10",
       "type": "motor",
-      "x": 0.72607,
-      "y": 0.95362
+      "x": 0.75523,
+      "y": 0.94666
     },
     {
       "class": "VD11",
       "id": "VD11",
       "name": "VD11",
       "type": "motor",
-      "x": 0.66265,
-      "y": 0.86972
+      "x": 0.69054,
+      "y": 0.86063
     },
     {
       "class": "VD12",
       "id": "VD12",
       "name": "VD12",
       "type": "motor",
-      "x": 0.64338,
-      "y": 0.85428
+      "x": 0.68671,
+      "y": 0.83671
     },
     {
       "class": "VD13",
       "id": "VD13",
       "name": "VD13",
       "type": "motor",
-      "x": 0.62969,
-      "y": 0.83674
-    },
-    {
-      "class": "hmc",
-      "id": "hmc",
-      "name": "hmc",
-      "type": "motor",
-      "x": 0.93977,
-      "y": 0.91129
+      "x": 0.66038,
+      "y": 0.83271
     }
   ]
 }

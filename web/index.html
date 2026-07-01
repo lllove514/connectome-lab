@@ -14,11 +14,22 @@
     <p class="sub">C. elegans hermaphrodite &middot; chemical synapses &amp; gap junctions</p>
     <input id="search" type="search" placeholder="find a neuron — e.g. ALM"
            autocomplete="off" spellcheck="false">
+
+    <div id="controls">
+      <button id="simToggle" type="button">Simulate</button>
+      <label id="speedwrap">speed
+        <input id="speed" type="range" min="1" max="60" value="20" disabled>
+      </label>
+      <label id="dbgwrap"><input id="debug" type="checkbox"> debug</label>
+    </div>
+    <p id="hint" class="sub"></p>
   </div>
 
   <div id="legend"></div>
   <div id="tooltip" hidden></div>
+  <div id="debugout" hidden></div>
 
+  <script src="sim.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

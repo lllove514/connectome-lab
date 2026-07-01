@@ -16,7 +16,7 @@ Retrieved: 2026-06-30.
 `data/build_connectome.py` keeps only neurons (muscle, gland, glial and
 end-organ nodes are dropped), separates the chemical (directed) and gap-junction
 (undirected) networks, tags each neuron sensory / inter / motor, and precomputes
-a Fruchterman-Reingold layout. Output: `web/connectome.json` — 303 neurons.
+a Fruchterman-Reingold layout. Output: `web/connectome.json` — 302 neurons.
 
 Neuron classification: membership and role come from the dataset's own
 `node_type` field (Cook et al. 2019); `node_subtype` is deliberately excluded

@@ -21,6 +21,14 @@ html, body {
   display: block;
 }
 
+/* The overlay panels sit on top of the canvas. Let clicks and hover on their
+   empty areas fall through to the graph, so neurons tucked under the title panel
+   (top-left) or legend (bottom-left) stay selectable — only the actual controls
+   capture the pointer. */
+#ui { pointer-events: none; }
+#ui input, #ui button, #ui label { pointer-events: auto; }
+#legend { pointer-events: none; }
+
 #ui {
   position: fixed;
   top: 18px;
@@ -56,6 +64,42 @@ html, body {
 
 #search:focus { border-color: rgba(120, 180, 255, 0.55); }
 #search::placeholder { color: #4a5160; }
+
+#controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+#controls button {
+  padding: 5px 10px;
+  font: inherit;
+  color: var(--fg);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#controls button:hover:not(:disabled) { background: rgba(255, 255, 255, 0.09); }
+#controls button:disabled { opacity: 0.35; cursor: default; }
+
+#simToggle.on {
+  color: #ffd27f;
+  border-color: rgba(255, 180, 84, 0.55);
+  background: rgba(255, 180, 84, 0.08);
+}
+
+#speedwrap { display: flex; align-items: center; gap: 6px; }
+#controls input[type="range"] { width: 96px; accent-color: #ffb454; }
+#controls input[type="range"]:disabled { opacity: 0.35; }
+
+#hint { margin: 8px 0 0; min-height: 14px; }
 
 #legend {
   position: fixed;
@@ -97,3 +141,20 @@ html, body {
 
 #tooltip .name { color: #fff; font-weight: 600; }
 #tooltip .dim { color: var(--muted); }
+
+#dbgwrap { display: flex; align-items: center; gap: 4px; }
+
+#debugout {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  pointer-events: none;
+  padding: 6px 9px;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: #9fe0c8;
+  background: rgba(12, 16, 22, 0.92);
+  border: 1px solid rgba(120, 200, 170, 0.35);
+  border-radius: 5px;
+  white-space: pre;
+}
