@@ -20,7 +20,9 @@
       "Bash(curl -sSL -o vendor/gif.worker.js https://unpkg.com/gif.js@0.2.0/dist/gif.worker.js)",
       "Bash(node --check record.js)",
       "Bash(node --check vendor/gif.js)",
-      "Bash(node --check vendor/gif.worker.js)"
+      "Bash(node --check vendor/gif.worker.js)",
+      "Bash(node --check stats.js)",
+      "Bash(node stats_selfcheck.js)"
     ]
   }
 }

@@ -103,6 +103,72 @@ html, body {
 
 #recstatus { color: var(--muted); font-size: 11px; }
 
+/* Network stats, a toggled card in the instrument style. Floats top-centre over
+   the graph only while open, so it never crowds the docked panels. */
+#stats {
+  position: fixed;
+  top: 76px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8;
+  width: 280px;
+  background: rgba(12, 16, 22, 0.97);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.5);
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--fg);
+}
+#stats-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+}
+#stats-close {
+  padding: 0 2px;
+  font: inherit;
+  color: var(--fg);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+#stats-body { padding: 10px 12px; display: flex; flex-direction: column; gap: 7px; }
+#stats .st-row b { color: #fff; font-weight: 600; }
+#stats .st-sub { color: var(--muted); }
+#stats .st-hubs { display: flex; flex-direction: column; gap: 1px; }
+#stats .st-hub {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#stats .st-hub:hover { background: rgba(255, 255, 255, 0.07); }
+#stats .st-hub .deg { color: var(--muted); }
+#stats .st-hub .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 7px;
+}
+#stats-hist {
+  display: block;
+  width: 100%;
+  height: 70px;
+  background: #07090d;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+#stats .st-cap { color: var(--muted); font-size: 11px; line-height: 1.4; }
+
 /* The left column belongs to the tutor now, so the type key moves to the
    bottom-centre where it stays clear of both docked panels. */
 #legend {
