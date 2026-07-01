@@ -44,6 +44,8 @@ const SETTLE_GLOW = 0.02; // below this, with nothing firing, the wave has ended
 let nodes = [];
 let chemical = [];
 let gap = [];
+let muscles = []; // body-wall muscle output layer, kept separate from the neuron graph
+let neuromuscular = []; // motor neuron -> muscle junctions
 const byId = new Map();
 const neighbors = new Map(); // id -> Set of directly connected ids
 const degree = new Map(); // id -> {in, out, gap}
@@ -76,6 +78,8 @@ function init(data) {
   nodes = data.nodes;
   chemical = data.chemical;
   gap = data.gap;
+  muscles = data.muscles || [];
+  neuromuscular = data.neuromuscular || [];
 
   for (const n of nodes) {
     byId.set(n.id, n);
@@ -268,6 +272,7 @@ function draw() {
   if (simMode && sim) drawSim();
   else drawExplore();
   teachHook("drawOverlay", ctx); // teaching highlights paint on top, wiped next frame
+  if (typeof Muscles !== "undefined" && Muscles.draw) Muscles.draw(ctx); // optional muscle layer, off by default
 }
 
 // --- Explore mode: static graph with selection + search highlighting ---------

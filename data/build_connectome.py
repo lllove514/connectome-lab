@@ -21,6 +21,7 @@ import json
 import math
 import os
 import random
+import re
 import sys
 import zipfile
 from datetime import date
@@ -199,6 +200,32 @@ def classify(node_type, node_subtype):
         if role != "unknown":
             break
     return is_neuron, role
+
+
+# Body-wall muscle names look like dBWML1: d/v is dorsal/ventral, L/R is the
+# left/right row, the number is the position from head (1) to tail.
+MUSCLE_RE = re.compile(r"^([dv])BWM([LR])(\d+)$")
+
+
+def is_muscle(node_type):
+    """True for a body-wall muscle cell, keyed off node_type the same careful way
+    neuron membership is. Body-wall muscles carry node_type 'BODYWALL MUSCLES';
+    the pharyngeal muscles (node_type 'PHARYNX') and the sex-specific muscles
+    (node_type 'SEX-SPECIFIC CELLS', with 'MUSCLES' only in the subtype) are
+    deliberately excluded, so this stays the 95-cell body-wall set.
+    """
+    t = node_type.lower()
+    return "bodywall" in t and "muscle" in t
+
+
+def muscle_meta(name):
+    """Parse a body-wall muscle name into (side, row, position), or None."""
+    m = MUSCLE_RE.match(name)
+    if not m:
+        return None
+    side = "dorsal" if m.group(1) == "d" else "ventral"
+    row = "left" if m.group(2) == "L" else "right"
+    return side, row, int(m.group(3))
 
 
 def rescued_role(name):
@@ -397,6 +424,28 @@ def main():
     chemical = aggregate(edges_c, neurons, undirected=False)
     gap = aggregate(edges_g, neurons, undirected=True)
 
+    # Muscle / output layer, kept entirely separate from the neuron graph above:
+    # the body-wall muscles and the neuromuscular junctions that drive them. The
+    # neuron nodes/chemical/gap sections are untouched. The chemical zip lists each
+    # junction muscle-first (muscle, neuron), so we flip it to the biological
+    # neuron -> muscle direction.
+    muscle_names = sorted(name for name, (ntype, _sub) in node_attrs.items() if is_muscle(ntype))
+    if not (80 <= len(muscle_names) <= 110):
+        die("detected %d body-wall muscles, expected ~95 — check the muscle type column" % len(muscle_names))
+    muscle_set = set(muscle_names)
+    muscles_out = []
+    for name in muscle_names:
+        parsed = muscle_meta(name)
+        side, row, pos = parsed if parsed else ("unknown", "unknown", 0)
+        muscles_out.append({"id": name, "name": name, "side": side, "row": row, "pos": pos})
+
+    nmj_totals = {}
+    for s, t, w in edges_c:
+        if s in muscle_set and t in neurons:  # file order is (muscle, neuron)
+            nmj_totals[(t, s)] = nmj_totals.get((t, s), 0) + w  # keyed neuron -> muscle
+    neuromuscular = [{"source": neu, "target": mus, "weight": w} for (neu, mus), w in nmj_totals.items()]
+    neuromuscular.sort(key=lambda e: (e["source"], e["target"]))
+
     layout = spring_layout(sorted(neurons), edges_c + edges_g, LAYOUT_ITERATIONS, LAYOUT_SEED)
     nodes_out = []
     for name in sorted(neurons):
@@ -418,16 +467,26 @@ def main():
             "chemical": len(chemical),
             "gap": len(gap),
             "by_type": by_type,
+            "muscles": len(muscles_out),
+            "neuromuscular": len(neuromuscular),
         },
     }
 
-    data = {"nodes": nodes_out, "chemical": chemical, "gap": gap, "meta": meta}
+    data = {
+        "nodes": nodes_out,
+        "chemical": chemical,
+        "gap": gap,
+        "muscles": muscles_out,
+        "neuromuscular": neuromuscular,
+        "meta": meta,
+    }
     with open(OUT, "w") as fh:
         json.dump(data, fh, indent=2, sort_keys=True)
         fh.write("\n")
 
     print("\nneurons: %d   chemical: %d   gap: %d" % (len(nodes_out), len(chemical), len(gap)))
     print("by type:", by_type)
+    print("muscles: %d   neuromuscular junctions: %d" % (len(muscles_out), len(neuromuscular)))
     print("wrote", os.path.relpath(OUT, HERE))
 
 
@@ -452,6 +511,14 @@ def selftest():
     assert neuron_class("ADAL") == "ADA"
     assert neuron_class("RMED") == "RME"
     assert neuron_class("IL1VL") == "IL1"
+    # Muscle layer: body-wall muscles are detected by node_type, and only those.
+    assert is_muscle("BODYWALL MUSCLES") is True
+    assert is_muscle("MOTOR NEURONS") is False
+    assert is_muscle("SEX-SPECIFIC CELLS") is False  # sex muscles carry 'MUSCLES' in the subtype only
+    assert is_muscle("PHARYNX") is False
+    assert muscle_meta("dBWML1") == ("dorsal", "left", 1)
+    assert muscle_meta("vBWMR24") == ("ventral", "right", 24)
+    assert muscle_meta("AVAL") is None
     a = spring_layout(["a", "b", "c"], [("a", "b", 1), ("b", "c", 1)], 50, LAYOUT_SEED)
     b = spring_layout(["a", "b", "c"], [("a", "b", 1), ("b", "c", 1)], 50, LAYOUT_SEED)
     assert a == b, "layout must be deterministic for a fixed seed"

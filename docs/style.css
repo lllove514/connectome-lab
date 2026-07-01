@@ -213,7 +213,7 @@ html, body {
 #tooltip .name { color: #fff; font-weight: 600; }
 #tooltip .dim { color: var(--muted); }
 
-#dbgwrap { display: flex; align-items: center; gap: 4px; }
+#dbgwrap, #musclewrap { display: flex; align-items: center; gap: 4px; }
 
 #debugout {
   position: fixed;

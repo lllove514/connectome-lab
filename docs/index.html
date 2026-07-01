@@ -23,6 +23,7 @@
         <input id="speed" type="range" min="1" max="60" value="20" disabled>
       </label>
       <label id="dbgwrap"><input id="debug" type="checkbox"> debug</label>
+      <label id="musclewrap"><input id="muscleToggle" type="checkbox"> show muscles</label>
       <button id="copylink" type="button" title="copy a link to this exact view">copy link</button>
       <button id="recgif" type="button" title="record the next poke as a looping GIF">record GIF</button>
       <span id="recstatus"></span>
@@ -30,6 +31,7 @@
       <button id="shortcutsBtn" type="button" title="keyboard shortcuts and the command palette">? shortcuts</button>
     </div>
     <p id="hint" class="sub"></p>
+    <p id="musclestat" class="sub" hidden></p>
   </div>
 
   <div id="legend"></div>
@@ -83,5 +85,6 @@
   <script src="vendor/gif.js"></script>
   <script src="record.js"></script>
   <script src="stats.js"></script>
+  <script src="muscles.js"></script>
 </body>
 </html>
