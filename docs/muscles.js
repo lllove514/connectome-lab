@@ -99,10 +99,11 @@
     ctx.stroke();
 
     // Brighten the junctions the wave is currently crossing.
+    const calm = typeof reduceMotion !== "undefined" && reduceMotion;
     for (let mi = 0; mi < muscles.length; mi++) {
       if (act[mi] <= 0.05) continue;
       const m = pos[mi];
-      ctx.strokeStyle = rgba("#ffd27f", act[mi] * 0.5);
+      ctx.strokeStyle = rgba("#ffd27f", act[mi] * (calm ? 0.22 : 0.5));
       ctx.beginPath();
       for (const p of presyn[mi]) {
         if (sim.activation[p.i] <= 0.05) continue;
@@ -117,9 +118,9 @@
     for (let mi = 0; mi < muscles.length; mi++) {
       const m = pos[mi];
       const av = act[mi];
-      const r = 2.6 + av * 2;
-      ctx.globalAlpha = 0.5 + av * 0.5;
-      ctx.fillStyle = av > 0.4 ? mix(MUSCLE_COLOR, "#fff1c4", ((av - 0.4) / 0.6) * 0.8) : MUSCLE_COLOR;
+      const r = 2.6 + av * (calm ? 0.8 : 2);
+      ctx.globalAlpha = calm ? 0.55 + av * 0.25 : 0.5 + av * 0.5;
+      ctx.fillStyle = !calm && av > 0.4 ? mix(MUSCLE_COLOR, "#fff1c4", ((av - 0.4) / 0.6) * 0.8) : MUSCLE_COLOR;
       ctx.beginPath();
       ctx.arc(m.x, m.y, r, 0, Math.PI * 2);
       ctx.fill();

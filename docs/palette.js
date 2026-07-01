@@ -93,6 +93,7 @@
     let commands = [];
     let paletteEl, boxEl, inputEl, listEl, helpEl;
     let paletteOpen = false;
+    let lastFocus = null; // element to return focus to when an overlay closes
     let items = [];
     let active = 0;
 
@@ -107,13 +108,42 @@
       if (s) { s.focus(); s.select(); }
     }
 
-    function openHelp() { if (helpEl) helpEl.hidden = false; }
+    function restoreFocus() {
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+      lastFocus = null;
+    }
 
+    function openHelp() {
+      if (!helpEl) return;
+      lastFocus = document.activeElement;
+      helpEl.hidden = false;
+      const c = document.getElementById("help-close");
+      if (c) c.focus(); // move focus into the dialog for keyboard users
+    }
+
+    function closeHelp() {
+      if (!helpEl || helpEl.hidden) return;
+      helpEl.hidden = true;
+      restoreFocus();
+    }
+
+    function closeGlossary() {
+      const gl = document.getElementById("glossary");
+      if (!gl || gl.hidden) return false;
+      gl.hidden = true;
+      const gb = document.getElementById("glossaryBtn");
+      if (gb) gb.setAttribute("aria-expanded", "false");
+      return true;
+    }
+
+    // Escape closes whatever overlay is open, in a sensible order, then falls back
+    // to clearing the selection.
     function onEscape() {
       if (paletteOpen) { closePalette(); return; }
-      if (helpEl && !helpEl.hidden) { helpEl.hidden = true; return; }
-      const gl = document.getElementById("glossary");
-      if (gl && !gl.hidden) { gl.hidden = true; return; }
+      if (helpEl && !helpEl.hidden) { closeHelp(); return; }
+      if (closeGlossary()) return;
+      const st = document.getElementById("stats");
+      if (st && !st.hidden) { st.hidden = true; return; }
       if (typeof setSelected === "function") setSelected(null); // clear selection + its ring
     }
 
@@ -140,6 +170,7 @@
         empty.className = "pal-empty";
         empty.textContent = "No matches.";
         listEl.appendChild(empty);
+        inputEl.setAttribute("aria-activedescendant", "");
         return;
       }
       items.forEach((it, i) => {
@@ -155,17 +186,28 @@
           hint.textContent = it.hint;
           row.appendChild(hint);
         }
+        row.id = "pal-opt-" + i;
+        row.setAttribute("role", "option");
+        row.setAttribute("aria-selected", i === active ? "true" : "false");
         row.addEventListener("mousemove", () => { if (active !== i) { active = i; paint(); } });
         row.addEventListener("click", () => { active = i; runHighlighted(); });
         listEl.appendChild(row);
       });
+      inputEl.setAttribute("aria-activedescendant", items.length ? "pal-opt-" + active : "");
     }
 
     function paint() {
       const rows = listEl.querySelectorAll(".pal-item");
-      rows.forEach((r, i) => r.classList.toggle("active", i === active));
+      rows.forEach((r, i) => {
+        const on = i === active;
+        r.classList.toggle("active", on);
+        r.setAttribute("aria-selected", on ? "true" : "false");
+      });
       const cur = rows[active];
-      if (cur) cur.scrollIntoView({ block: "nearest" });
+      if (cur) {
+        cur.scrollIntoView({ block: "nearest" });
+        inputEl.setAttribute("aria-activedescendant", cur.id);
+      }
     }
 
     function move(d) {
@@ -183,6 +225,7 @@
 
     function openPalette() {
       paletteOpen = true;
+      lastFocus = document.activeElement;
       paletteEl.hidden = false;
       inputEl.value = "";
       active = 0;
@@ -193,17 +236,21 @@
     function closePalette() {
       paletteOpen = false;
       paletteEl.hidden = true;
-      inputEl.blur();
+      inputEl.setAttribute("aria-activedescendant", "");
+      restoreFocus();
     }
 
     function buildPalette() {
       paletteEl = document.createElement("div");
       paletteEl.id = "palette";
       paletteEl.hidden = true;
+      paletteEl.setAttribute("role", "dialog");
+      paletteEl.setAttribute("aria-modal", "true");
+      paletteEl.setAttribute("aria-label", "Command palette");
       paletteEl.innerHTML =
         '<div id="palette-box">' +
-        '<input id="palette-input" type="text" autocomplete="off" spellcheck="false" placeholder="type a command or a neuron name">' +
-        '<div id="palette-list"></div>' +
+        '<input id="palette-input" type="text" role="combobox" aria-expanded="true" aria-controls="palette-list" aria-autocomplete="list" aria-label="Type a command or a neuron name" autocomplete="off" spellcheck="false" placeholder="type a command or a neuron name">' +
+        '<div id="palette-list" role="listbox" aria-label="Commands and neurons"></div>' +
         "</div>";
       document.body.appendChild(paletteEl);
       boxEl = document.getElementById("palette-box");
@@ -218,14 +265,17 @@
       helpEl = document.createElement("div");
       helpEl.id = "help";
       helpEl.hidden = true;
+      helpEl.setAttribute("role", "dialog");
+      helpEl.setAttribute("aria-modal", "true");
+      helpEl.setAttribute("aria-label", "Keyboard shortcuts");
       let dl = "";
       for (const [key, desc] of SHORTCUTS) dl += "<dt>" + key + "</dt><dd>" + desc + "</dd>";
       helpEl.innerHTML =
         '<div id="help-box"><h3>Keyboard shortcuts</h3><dl>' + dl + "</dl>" +
         '<button id="help-close" type="button">close</button></div>';
       document.body.appendChild(helpEl);
-      document.getElementById("help-close").addEventListener("click", () => { helpEl.hidden = true; });
-      helpEl.addEventListener("mousedown", (e) => { if (e.target === helpEl) helpEl.hidden = true; });
+      document.getElementById("help-close").addEventListener("click", closeHelp);
+      helpEl.addEventListener("mousedown", (e) => { if (e.target === helpEl) closeHelp(); });
     }
 
     function onKeydown(e) {

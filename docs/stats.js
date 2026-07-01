@@ -70,13 +70,23 @@
       panel = document.createElement("div");
       panel.id = "stats";
       panel.hidden = true;
+      panel.setAttribute("role", "dialog");
+      panel.setAttribute("aria-label", "Network statistics");
       panel.innerHTML =
         '<div id="stats-head"><span>Network</span>' +
         '<button id="stats-close" type="button" title="close">close</button></div>' +
         '<div id="stats-body"></div>';
       document.body.appendChild(panel);
       bodyEl = panel.querySelector("#stats-body");
-      panel.querySelector("#stats-close").addEventListener("click", () => { panel.hidden = true; });
+      panel.querySelector("#stats-close").addEventListener("click", closePanel);
+    }
+
+    let lastFocus = null;
+    function closePanel() {
+      panel.hidden = true;
+      if (btn) btn.setAttribute("aria-expanded", "false");
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+      lastFocus = null;
     }
 
     // Compute once, the first time the panel is opened (data is loaded by then).
@@ -153,8 +163,16 @@
 
     function toggle() {
       if (!ensureStats()) return; // data not ready yet
-      panel.hidden = !panel.hidden;
-      if (!panel.hidden) drawHistogram(); // draw while visible so the canvas has a size
+      if (panel.hidden) {
+        lastFocus = document.activeElement;
+        panel.hidden = false;
+        if (btn) btn.setAttribute("aria-expanded", "true");
+        drawHistogram(); // draw while visible so the canvas has a size
+        const close = panel.querySelector("#stats-close");
+        if (close) close.focus();
+      } else {
+        closePanel();
+      }
     }
 
     function init() {

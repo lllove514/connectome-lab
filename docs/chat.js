@@ -424,6 +424,7 @@
   function toggleCollapsed() {
     const collapsed = panel.classList.toggle("collapsed");
     toggleBtn.textContent = collapsed ? "▸" : "▾"; // ▸ / ▾
+    toggleBtn.setAttribute("aria-expanded", collapsed ? "false" : "true");
   }
 
   // --- local-dev key source ---------------------------------------------------

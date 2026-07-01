@@ -121,16 +121,16 @@
 
     toolsEl.innerHTML =
       '<details id="d-sandbox"><summary>Play with the model</summary><div class="t-body">' +
-        '<label>threshold <input type="range" id="s-thr" min="0.2" max="2" step="0.05"></label>' +
+        '<label>threshold <input type="range" id="s-thr" aria-label="firing threshold" min="0.2" max="2" step="0.05"></label>' +
         '<div class="cap" id="cap-thr"></div>' +
-        '<label>gain <input type="range" id="s-gain" min="0.05" max="0.8" step="0.01"></label>' +
+        '<label>gain <input type="range" id="s-gain" aria-label="synaptic gain" min="0.05" max="0.8" step="0.01"></label>' +
         '<div class="cap" id="cap-gain"></div>' +
-        '<label>leak <input type="range" id="s-leak" min="0.02" max="0.5" step="0.01"></label>' +
+        '<label>leak <input type="range" id="s-leak" aria-label="membrane leak" min="0.02" max="0.5" step="0.01"></label>' +
         '<div class="cap" id="cap-leak"></div>' +
         '<button id="s-reset" type="button">put it back to normal</button>' +
       '</div></details>' +
       '<details id="d-lesson"><summary>Guided circuits</summary><div class="t-body">' +
-        '<div class="t-row" id="lesson-picker"></div>' +
+        '<div class="t-row" id="lesson-picker" role="group" aria-label="Choose a circuit"></div>' +
         '<div class="t-narr" id="lesson-narr"></div>' +
         '<div class="t-row"><button id="lesson-prev" type="button">back</button>' +
         '<span id="lesson-step"></span><button id="lesson-next" type="button">next</button></div>' +
@@ -142,7 +142,7 @@
         '<div class="t-narr" id="tr-result"></div>' +
       '</div></details>' +
       '<details id="d-reach"><summary>How far a signal spreads</summary><div class="t-body">' +
-        '<label>steps <input type="range" id="rc-n" min="1" max="5" value="2"> <span id="rc-nval">2</span></label>' +
+        '<label>steps <input type="range" id="rc-n" aria-label="how many steps out to reach" min="1" max="5" value="2"> <span id="rc-nval">2</span></label>' +
         '<div class="t-narr" id="rc-count"></div>' +
         '<label class="t-check"><input type="checkbox" id="rc-cmd"> highlight the command neurons</label>' +
         '<div class="cap">This counts chemical links only. A real poke also spreads through gap junctions, so a live wave lights up more neurons than this number shows.</div>' +
@@ -360,6 +360,7 @@
       b.className = "lesson-pick" + (id === state.circuitId ? " on" : "");
       b.textContent = circuits[id].name;
       b.dataset.cid = id;
+      b.setAttribute("aria-pressed", id === state.circuitId ? "true" : "false");
       b.addEventListener("click", () => selectCircuit(id));
       lessonPicker.appendChild(b);
     }
@@ -374,7 +375,11 @@
     state.circuit = idxSet(circuits[id].neurons);
     state.steps = circuits[id].steps || [];
     if (lessonPicker) {
-      for (const b of lessonPicker.children) b.classList.toggle("on", b.dataset.cid === id);
+      for (const b of lessonPicker.children) {
+        const on = b.dataset.cid === id;
+        b.classList.toggle("on", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      }
     }
     if (!simMode) setSimMode(true);
     showStep(0);
@@ -455,7 +460,10 @@
   function startPulse(path) {
     if (rafId) cancelAnimationFrame(rafId);
     rafId = null;
-    if (path.length < 2) { state.pulse = null; return; }
+    state.pulse = null;
+    // Reduced motion: the path stays highlighted (drawn from state.trace), we just
+    // skip the travelling dot.
+    if (path.length < 2 || (typeof reduceMotion !== "undefined" && reduceMotion)) { requestDraw(); return; }
     state.pulse = { path: path, t0: performance.now() };
     const frame = () => {
       const done = performance.now() - state.pulse.t0 >= (path.length - 1) * PULSE_HOP_MS;
@@ -520,7 +528,10 @@
     let html = "<h3>What these words mean</h3><dl>";
     for (const term in GLOSSARY) html += "<dt>" + term + "</dt><dd>" + GLOSSARY[term] + "</dd>";
     glossaryEl.innerHTML = html + "</dl>";
-    glossaryBtn.addEventListener("click", () => { glossaryEl.hidden = !glossaryEl.hidden; });
+    glossaryBtn.addEventListener("click", () => {
+      glossaryEl.hidden = !glossaryEl.hidden;
+      glossaryBtn.setAttribute("aria-expanded", glossaryEl.hidden ? "false" : "true");
+    });
   }
 
   // --- accordion: one tool open at a time, and each sets the mode it wants ----

@@ -7,74 +7,79 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <canvas id="view"></canvas>
+  <canvas id="view" role="img"
+    aria-label="Map of the 302 neuron C. elegans connectome, drawn on a canvas. To use it with the keyboard, find and select a neuron with the search field, then use the Simulate, Play, and Step controls."></canvas>
 
   <div id="ui">
     <h1>Connectome Lab</h1>
     <p class="sub">C. elegans hermaphrodite &middot; chemical synapses &amp; gap junctions</p>
     <input id="search" type="search" placeholder="find a neuron, like ALM"
-           autocomplete="off" spellcheck="false">
+           aria-label="Find a neuron by name" autocomplete="off" spellcheck="false">
 
-    <div id="controls">
-      <button id="simToggle" type="button">Simulate</button>
+    <div id="controls" role="group" aria-label="Simulation controls">
+      <button id="simToggle" type="button" aria-pressed="false">Simulate</button>
       <button id="play" type="button" disabled>Play</button>
       <button id="step" type="button" disabled>Step</button>
       <label id="speedwrap">speed
-        <input id="speed" type="range" min="1" max="60" value="20" disabled>
+        <input id="speed" type="range" min="1" max="60" value="20" disabled
+               aria-label="simulation speed in ticks per second">
       </label>
       <label id="dbgwrap"><input id="debug" type="checkbox"> debug</label>
       <label id="musclewrap"><input id="muscleToggle" type="checkbox"> show muscles</label>
       <button id="copylink" type="button" title="copy a link to this exact view">copy link</button>
       <button id="recgif" type="button" title="record the next poke as a looping GIF">record GIF</button>
-      <span id="recstatus"></span>
-      <button id="statsBtn" type="button" title="show network statistics">network stats</button>
-      <button id="shortcutsBtn" type="button" title="keyboard shortcuts and the command palette">? shortcuts</button>
+      <span id="recstatus" role="status" aria-live="polite"></span>
+      <button id="statsBtn" type="button" title="show network statistics"
+              aria-haspopup="dialog" aria-expanded="false">network stats</button>
+      <button id="shortcutsBtn" type="button" title="keyboard shortcuts and the command palette"
+              aria-haspopup="dialog">? shortcuts</button>
     </div>
-    <p id="hint" class="sub"></p>
-    <p id="musclestat" class="sub" hidden></p>
+    <p id="hint" class="sub" role="status" aria-live="polite"></p>
+    <p id="musclestat" class="sub" role="status" aria-live="polite" hidden></p>
   </div>
 
-  <div id="legend"></div>
+  <div id="legend" role="img" aria-label="Neuron type color key"></div>
   <div id="tooltip" hidden></div>
   <div id="debugout" hidden></div>
 
   <!-- AI tutor, docked left (the reserved side). Collapsible; reads the selected
        neuron and live sim state to answer about whatever you are looking at. -->
-  <div id="tutor">
+  <div id="tutor" role="region" aria-label="AI tutor">
     <div id="tutor-head">
       <span>Tutor</span>
-      <button id="tutor-toggle" type="button" title="show or hide the tutor">▾</button>
+      <button id="tutor-toggle" type="button" aria-label="Show or hide the tutor" aria-expanded="true">&#9662;</button>
     </div>
     <div id="tutor-body">
       <div id="tutor-ctx"></div>
-      <div id="tutor-log"></div>
-      <div id="tutor-chips"></div>
+      <div id="tutor-log" role="log" aria-live="polite" aria-label="Tutor conversation"></div>
+      <div id="tutor-chips" role="group" aria-label="Suggested questions"></div>
       <form id="tutor-form">
         <input id="tutor-input" type="text" autocomplete="off"
+               aria-label="Ask the tutor about the selected neuron"
                placeholder="ask about the selected neuron">
         <button id="tutor-send" type="submit">ask</button>
       </form>
       <div id="tutor-key">
         <input id="tutor-key-input" type="password" autocomplete="off"
-               placeholder="paste DeepSeek API key">
+               aria-label="DeepSeek API key" placeholder="paste DeepSeek API key">
         <button id="tutor-key-change" type="button" hidden>change key</button>
         <span id="tutor-key-status" class="cap"></span>
       </div>
       <div id="tutor-note" class="cap">Key stays in memory only. The hosted site uses a server side proxy.</div>
-      <div id="tutor-status" class="cap"></div>
+      <div id="tutor-status" class="cap" role="status" aria-live="polite"></div>
     </div>
   </div>
 
   <!-- Teaching rail, docked right. -->
-  <div id="teach">
+  <div id="teach" role="region" aria-label="Teaching tools">
     <div id="teach-head">
       <span>How a neuron fires</span>
-      <button id="glossaryBtn" type="button" title="what do these words mean?">?</button>
+      <button id="glossaryBtn" type="button" aria-label="Open the glossary" aria-expanded="false">?</button>
     </div>
     <div id="teach-card" hidden></div>
     <div id="teach-tools"></div>
   </div>
-  <div id="glossary" hidden></div>
+  <div id="glossary" role="dialog" aria-label="Glossary" hidden></div>
 
   <script src="sim.js"></script>
   <script src="app.js"></script>

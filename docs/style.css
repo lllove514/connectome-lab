@@ -1,11 +1,34 @@
 :root {
   --bg: #0a0c10;
   --fg: #c9d1d9;
-  --muted: #6b7280;
+  /* muted was #6b7280 (about 3.9:1 on the dark background); lifted to clear WCAG
+     AA for small text while staying quiet. */
+  --muted: #8a93a3;
   --line: rgba(255, 255, 255, 0.12);
 }
 
 * { box-sizing: border-box; }
+
+/* A clear, high-contrast focus ring for keyboard users on every control, without
+   showing an outline on plain mouse clicks. */
+:focus-visible {
+  outline: 2px solid #ffcf8a;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Respect a reduced-motion preference: cut CSS animation and transitions. The
+   firing wave and the trace pulse are canvas-drawn, so they are calmed in JS. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 html, body {
   margin: 0;
@@ -63,7 +86,7 @@ html, body {
 }
 
 #search:focus { border-color: rgba(120, 180, 255, 0.55); }
-#search::placeholder { color: #4a5160; }
+#search::placeholder { color: #737d8c; }
 
 #controls {
   display: flex;
@@ -488,7 +511,7 @@ html, body {
   outline: none;
 }
 #tutor-input:focus { border-color: rgba(120, 180, 255, 0.55); }
-#tutor-input::placeholder { color: #4a5160; }
+#tutor-input::placeholder { color: #737d8c; }
 
 #tutor-send {
   padding: 6px 10px;
@@ -567,7 +590,7 @@ html, body {
   border-bottom: 1px solid var(--line);
   outline: none;
 }
-#palette-input::placeholder { color: #4a5160; }
+#palette-input::placeholder { color: #737d8c; }
 #palette-list { max-height: 320px; overflow-y: auto; }
 .pal-item {
   display: flex;

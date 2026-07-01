@@ -66,6 +66,19 @@ let manual = false; // manual stepping mode: on after Pause/Step, off after Play
 let simTimer = null;
 let simSpeed = Number(speedSlider.value); // ticks per second
 
+// Honor prefers-reduced-motion (also protects photosensitive users): when set,
+// the firing render is calmed to steady color changes instead of bright flashes,
+// and the trace pulse and muscle flashing (teach.js, muscles.js read this flag)
+// are toned down. Updated live if the user flips the OS setting.
+let reduceMotion = false;
+const motionQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+if (motionQuery) {
+  reduceMotion = motionQuery.matches;
+  const onMotionChange = () => { reduceMotion = motionQuery.matches; if (!playing) draw(); };
+  if (motionQuery.addEventListener) motionQuery.addEventListener("change", onMotionChange);
+  else if (motionQuery.addListener) motionQuery.addListener(onMotionChange); // older Safari
+}
+
 fetch("connectome.json")
   .then((r) => {
     if (!r.ok) throw new Error(r.status + " " + r.statusText);
@@ -351,7 +364,7 @@ function drawSim() {
     if (a <= ACTIVE_EDGE_MIN) continue;
     const src = nodes[i];
     const chem = net.chemOut[i];
-    ctx.strokeStyle = rgba("#ffd27f", a * 0.4);
+    ctx.strokeStyle = rgba("#ffd27f", a * (reduceMotion ? 0.18 : 0.4));
     ctx.beginPath();
     for (let k = 0; k < chem.length; k += 2) {
       const tgt = nodes[chem[k]];
@@ -366,7 +379,7 @@ function drawSim() {
     if (a <= ACTIVE_EDGE_MIN) continue;
     const src = nodes[i];
     const gaps = net.gapAdj[i];
-    ctx.strokeStyle = rgba(GAP_COLOR, a * 0.5);
+    ctx.strokeStyle = rgba(GAP_COLOR, a * (reduceMotion ? 0.22 : 0.5));
     ctx.beginPath();
     for (let k = 0; k < gaps.length; k += 2) {
       const tgt = nodes[gaps[k]];
@@ -390,7 +403,9 @@ function drawSim() {
     const base = (TYPES[n.type] || TYPES.unknown).color;
     const ease = a * a; // soften: gentle at low activation, full only at a fresh spike
 
-    if (a > 0.04) {
+    // The halo is the main source of frame-to-frame brightness swing, so skip it
+    // entirely under reduced motion.
+    if (a > 0.04 && !reduceMotion) {
       ctx.globalAlpha = 0.03 + ease * 0.12; // <= ~0.15 per node caps additive buildup
       ctx.fillStyle = "#ffb14d"; // warm amber, not near-white
       ctx.beginPath();
@@ -398,9 +413,11 @@ function drawSim() {
       ctx.fill();
     }
 
-    const r = 2.4 + a * 1.6;
-    ctx.globalAlpha = 0.28 + a * 0.62; // core opacity tops out ~0.9, never opaque white
-    ctx.fillStyle = a > 0.5 ? mix(base, "#fff1c4", ((a - 0.5) / 0.5) * 0.7) : base;
+    // Reduced motion: a smaller, steadier size and opacity change, and no white
+    // hot flash, so activity reads as a calm brightening in the cell's own color.
+    const r = 2.4 + a * (reduceMotion ? 0.7 : 1.6);
+    ctx.globalAlpha = reduceMotion ? 0.4 + a * 0.35 : 0.28 + a * 0.62;
+    ctx.fillStyle = !reduceMotion && a > 0.5 ? mix(base, "#fff1c4", ((a - 0.5) / 0.5) * 0.7) : base;
     ctx.beginPath();
     ctx.arc(n.sx, n.sy, r, 0, TAU);
     ctx.fill();
@@ -431,6 +448,7 @@ function ring(n, r, color, width) {
 function setSimMode(on) {
   simMode = on;
   simToggleBtn.classList.toggle("on", on);
+  simToggleBtn.setAttribute("aria-pressed", on ? "true" : "false");
   simToggleBtn.textContent = on ? "Explore" : "Simulate";
   speedSlider.disabled = !on;
 
