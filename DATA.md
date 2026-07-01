@@ -13,15 +13,19 @@ Retrieved: 2026-06-30.
 
 ## Processing
 
-`data/build_connectome.py` keeps only neurons (muscle and end-organ nodes are
-dropped for v1), separates the chemical (directed) and gap-junction (undirected)
-networks, tags each neuron sensory / inter / motor, and precomputes a
-Fruchterman-Reingold layout. Output: `web/connectome.json`.
+`data/build_connectome.py` keeps only neurons (muscle, gland, glial and
+end-organ nodes are dropped), separates the chemical (directed) and gap-junction
+(undirected) networks, tags each neuron sensory / inter / motor, and precomputes
+a Fruchterman-Reingold layout. Output: `web/connectome.json` — 303 neurons.
 
-Neuron classification: derived from the dataset's own `node_type` / `node_subtype`
-fields (Cook et al. 2019). If those fields fail to give a clean split the script
-falls back to the OpenWorm CElegansNeuronTables; any neuron still unresolved is
-left as `unknown`.
+Neuron classification: membership and role come from the dataset's own
+`node_type` field (Cook et al. 2019); `node_subtype` is deliberately excluded
+because muscles and end organs carry the subtype `BODY MOTOR NEURONS` (their
+innervation) and would otherwise be misfiled as motor neurons. The 20 pharyngeal
+neurons, the hermaphrodite-specific HSN and VC neurons, and the two CAN neurons
+are filed by the source under location/sex buckets rather than by role, so they
+are rescued by name from their lineage-fixed identities. CAN has no chemical
+synapses and no accepted role, so it is left `unknown`.
 
 ## License and reuse
 

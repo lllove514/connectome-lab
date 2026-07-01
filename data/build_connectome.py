@@ -41,6 +41,18 @@ OPENWORM_TYPES_URL = "https://raw.githubusercontent.com/openworm/c302/master/c30
 LAYOUT_ITERATIONS = 300
 LAYOUT_SEED = 1729  # fixed so the layout — and the committed JSON — reproduce exactly
 
+# Some genuine neurons are filed by location or sex rather than by role, grouped
+# in with the muscle, gland, marginal and glial cells they sit near, so node_type
+# alone can't recover them: the 20 pharyngeal neurons (Albertson & Thomson 1976),
+# the hermaphrodite-specific HSN and VC motor neurons, and the two CAN neurons.
+# C. elegans cell names are lineage-fixed, so we rescue this exact set by name.
+EXTRA_NEURONS = frozenset({
+    "I1L", "I1R", "I2L", "I2R", "I3", "I4", "I5", "I6",
+    "M1", "M2L", "M2R", "M3L", "M3R", "M4", "M5", "MCL", "MCR", "MI", "NSML", "NSMR",
+    "HSNL", "HSNR", "VC01", "VC02", "VC03", "VC04", "VC05", "VC06",
+    "CANL", "CANR",
+})
+
 
 def die(msg):
     print("error:", msg, file=sys.stderr)
@@ -49,11 +61,11 @@ def die(msg):
 
 def download(url):
     """Return the local path to the cached zip, fetching it once if absent."""
-    import requests
-
     path = os.path.join(RAW, url.rsplit("/", 1)[-1])
     if os.path.exists(path) and zipfile.is_zipfile(path):
         return path
+    import requests  # only needed on a real download; cached runs stay dependency-free
+
     print("downloading", os.path.basename(path))
     resp = requests.get(url, timeout=60)
     resp.raise_for_status()
@@ -166,20 +178,35 @@ def read_network(zip_path, label):
 def classify(node_type, node_subtype):
     """Map a node's type fields to (is_neuron, role).
 
-    In this dataset a neuron's type text always contains the word 'neuron'
-    ('sensory neuron', 'interneuron', 'motor neuron'); muscle and end-organ
-    nodes do not, which is exactly the split we want. The role is then the
-    anatomical prefix, checked in a fixed priority so polymodal cells land
-    deterministically.
+    Membership is decided by node_type alone — the neuron buckets are
+    'SENSORY NEURONS', 'INTERNEURONS' and 'MOTOR NEURONS'. node_subtype must NOT
+    feed this test: body-wall muscles, end organs and sex-specific cells carry a
+    subtype of 'BODY MOTOR NEURONS' (the neurons that drive them), so folding it
+    in would misfile ~130 non-neurons as motor neurons. Role is the anatomical
+    prefix of node_type, falling back to node_subtype for a confirmed neuron.
     """
-    text = (node_type + " " + node_subtype).lower()
-    is_neuron = "neuron" in text
+    is_neuron = "neuron" in node_type.lower()
     role = "unknown"
-    for keyword in ("sensory", "inter", "motor"):
-        if keyword in text:
-            role = keyword
+    for text in (node_type.lower(), node_subtype.lower()):
+        for keyword in ("sensory", "inter", "motor"):
+            if keyword in text:
+                role = keyword
+                break
+        if role != "unknown":
             break
     return is_neuron, role
+
+
+def rescued_role(name):
+    """Role for a name-rescued neuron, following its lineage naming convention.
+
+    Pharyngeal I1-I6 are interneurons; the pharyngeal M/MC/MI/NSM cells and the
+    hermaphrodite HSN and VC cells are motor neurons. CAN has no chemical
+    synapses and no accepted sensory/inter/motor role, so it stays 'unknown'.
+    """
+    if name in ("CANL", "CANR"):
+        return "unknown"
+    return "inter" if name.startswith("I") else "motor"
 
 
 def neuron_class(name):
@@ -335,6 +362,8 @@ def main():
     neurons = {}
     for name, (ntype, nsub) in node_attrs.items():
         is_neuron, role = classify(ntype, nsub)
+        if not is_neuron and name in EXTRA_NEURONS:
+            is_neuron, role = True, rescued_role(name)
         if is_neuron:
             neurons[name] = {"id": name, "name": name, "type": role, "class": neuron_class(name)}
 
@@ -343,7 +372,10 @@ def main():
     if len(neurons) < 100:
         die("only %d neurons detected — check the node type columns above" % len(neurons))
 
-    classification_source = "dataset node_type/node_subtype (Cook et al. 2019)"
+    classification_source = (
+        "dataset node_type/node_subtype (Cook et al. 2019); pharyngeal, HSN, VC and "
+        "CAN neurons rescued by name from the location and sex-specific buckets"
+    )
     unresolved = [n for n, d in neurons.items() if d["type"] == "unknown"]
     if len(unresolved) > 0.2 * len(neurons):
         table = fetch_openworm_types()
@@ -396,10 +428,21 @@ def main():
 
 
 def selftest():
-    assert classify("neuron", "interneuron") == (True, "inter")
-    assert classify("neuron", "sensory neuron") == (True, "sensory")
-    assert classify("neuron", "motor neuron") == (True, "motor")
-    assert classify("muscle", "body wall muscle") == (False, "unknown")
+    assert classify("SENSORY NEURONS", "") == (True, "sensory")
+    assert classify("INTERNEURONS", "") == (True, "inter")
+    assert classify("MOTOR NEURONS", "BODY MOTOR NEURONS") == (True, "motor")
+    # Muscles, end organs and sex cells borrow 'BODY MOTOR NEURONS' as their
+    # subtype; membership keys off node_type so they must stay out of the graph.
+    assert classify("BODYWALL MUSCLES", "BODY MOTOR NEURONS")[0] is False
+    assert classify("OTHER END ORGANS", "BODY MOTOR NEURONS")[0] is False
+    assert classify("PHARYNX", "") == (False, "unknown")
+    assert len(EXTRA_NEURONS) == 30
+    assert rescued_role("I3") == "inter"
+    assert rescued_role("M4") == "motor"
+    assert rescued_role("NSML") == "motor"
+    assert rescued_role("HSNL") == "motor"
+    assert rescued_role("VC03") == "motor"
+    assert rescued_role("CANL") == "unknown"
     assert neuron_class("ADAL") == "ADA"
     assert neuron_class("RMED") == "RME"
     assert neuron_class("IL1VL") == "IL1"

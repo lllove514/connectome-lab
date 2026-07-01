@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python3 data/build_connectome.py --selftest)"
+      "Bash(python3 data/build_connectome.py --selftest)",
+      "Bash(python3 -c ' *)"
     ]
   }
 }
