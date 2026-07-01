@@ -450,3 +450,83 @@ html, body {
 
 #tutor-note, #tutor-status { padding: 0 10px 8px; }
 #tutor-status.error { color: #ff8095; }
+
+/* Command palette and help overlay. Same instrument surface as the other panels:
+   dark fill, thin border, mono, amber accent. Both sit above everything. */
+#palette, #help {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+}
+#palette { align-items: flex-start; }
+#help { align-items: center; }
+
+#palette-box, #help-box {
+  background: rgba(12, 16, 22, 0.98);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  color: var(--fg);
+}
+
+#palette-box {
+  margin-top: 12vh;
+  width: min(520px, 92vw);
+  overflow: hidden;
+}
+#palette-input {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--fg);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  outline: none;
+}
+#palette-input::placeholder { color: #4a5160; }
+#palette-list { max-height: 320px; overflow-y: auto; }
+.pal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.pal-item.active { background: rgba(255, 180, 84, 0.14); }
+.pal-hint { color: var(--muted); font-size: 11px; }
+.pal-empty { padding: 10px 14px; color: var(--muted); font-size: 12px; }
+
+#help-box {
+  width: min(420px, 92vw);
+  padding: 16px 18px;
+  font-size: 13px;
+}
+#help-box h3 { margin: 0 0 12px; font-size: 13px; }
+#help-box dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 7px 16px;
+}
+#help-box dt { color: #ffd27f; white-space: nowrap; }
+#help-box dd { margin: 0; color: var(--muted); }
+#help-close {
+  margin-top: 16px;
+  padding: 5px 10px;
+  font: inherit;
+  font-size: 12px;
+  color: var(--fg);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  cursor: pointer;
+}
+#help-close:hover { background: rgba(255, 255, 255, 0.09); }

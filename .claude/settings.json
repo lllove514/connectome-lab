@@ -12,7 +12,9 @@
       "Bash(terminal-notifier -title 'Claude Code' -message 'hook test — this is what fires' -sound Glass)",
       "Bash(node --check permalink.js)",
       "Bash(node --check teach.js)",
-      "Bash(node permalink_selfcheck.js)"
+      "Bash(node permalink_selfcheck.js)",
+      "Bash(node --check palette.js)",
+      "Bash(node palette_selfcheck.js)"
     ]
   }
 }
