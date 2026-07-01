@@ -16,7 +16,7 @@ Retrieved: 2026-06-30.
 `data/build_connectome.py` keeps only neurons (muscle, gland, glial and
 end-organ nodes are dropped), separates the chemical (directed) and gap-junction
 (undirected) networks, tags each neuron sensory / inter / motor, and precomputes
-a Fruchterman-Reingold layout. Output: `web/connectome.json` — 302 neurons.
+a Fruchterman-Reingold layout. Output: `docs/connectome.json` — 302 neurons.
 
 Neuron classification: membership and role come from the dataset's own
 `node_type` field (Cook et al. 2019); `node_subtype` is deliberately excluded
@@ -29,8 +29,8 @@ synapses and no accepted role, so it is left `unknown`.
 
 ## Teaching layer
 
-The guided touch-reflex circuit (`web/circuits.json`) and the glossary in
-`web/teach.js` are curated from WormAtlas (https://www.wormatlas.org) and the
+The guided touch-reflex circuit (`docs/circuits.json`) and the glossary in
+`docs/teach.js` are curated from WormAtlas (https://www.wormatlas.org) and the
 C. elegans touch-circuit literature (Chalfie et al.; the gentle-touch reflex).
 Neuron memberships (ALM/AVM/PLM touch cells, the AVA/AVB/AVD/PVC command
 interneurons, and representative VA/DA/VB/DB motor neurons) follow the
@@ -43,7 +43,7 @@ is used here under academic citation. Netzschleuder's own AGPLv3 covers their
 software, not the network data it hosts.
 
 Raw files are not redistributed — `data/raw/` is gitignored. Only the transformed
-`web/connectome.json` is committed, with the attribution above. Use here is
+`docs/connectome.json` is committed, with the attribution above. Use here is
 non-commercial and educational.
 
 For commercial reuse, contact the Emmons Lab; this project is a non-commercial demo.

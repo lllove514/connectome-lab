@@ -1,6 +1,6 @@
 // Self-check for the two pieces of chat.js that are easy to get wrong: parsing
 // the streaming SSE lines and deciding when a question leans on the selection.
-// Run: node web/chat_selfcheck.js  (exits nonzero on any failure)
+// Run: node docs/chat_selfcheck.js  (exits nonzero on any failure)
 
 const { sseDelta, refersToSelection, mdToHtml } = require("./chat.js");
 

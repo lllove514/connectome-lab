@@ -3,7 +3,7 @@
 // directed-BFS path, the N-hop reach, the reflex circuit's ids, and that the
 // command interneurons really are wiring hubs.
 //
-//   node web/teach_selfcheck.js
+//   node docs/teach_selfcheck.js
 //
 // Exits 0 on PASS, 1 on FAIL. Fixtures are verified against the committed data:
 // ALML -> AVAL is reachable; CANL has zero chemical in-degree (unreachable).

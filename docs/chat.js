@@ -417,7 +417,7 @@
   }
 
   // Convenience for local development only: on localhost, pull in a gitignored
-  // web/config.local.js that sets window.LOCAL_DEEPSEEK_KEY, so the key survives
+  // docs/config.local.js that sets window.LOCAL_DEEPSEEK_KEY, so the key survives
   // a refresh without pasting. The file is injected dynamically and ONLY on
   // localhost, so the deployed site never references it (no 404, no console
   // noise). A missing or empty file just leaves the paste field in charge.

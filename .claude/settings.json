@@ -3,7 +3,8 @@
     "allow": [
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000/index.html)",
       "Bash(node -e ' *)",
-      "Bash(node --check chat.js)"
+      "Bash(node --check chat.js)",
+      "Bash(python3 -c \"import os; HERE='$\\(pwd\\)/data'; print\\(os.path.relpath\\(os.path.join\\(HERE, os.pardir, 'docs', 'connectome.json'\\)\\)\\)\")"
     ]
   }
 }

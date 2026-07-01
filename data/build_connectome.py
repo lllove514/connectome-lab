@@ -1,4 +1,4 @@
-"""Build web/connectome.json from the C. elegans hermaphrodite connectome.
+"""Build docs/connectome.json from the C. elegans hermaphrodite connectome.
 
 Source data is the Cook et al. (2019) whole-animal connectome, downloaded as
 CSV from the Netzschleuder mirror of the Emmons Lab / WormWiring release. Each
@@ -27,7 +27,7 @@ from datetime import date
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(HERE, "raw")
-OUT = os.path.join(HERE, os.pardir, "web", "connectome.json")
+OUT = os.path.join(HERE, os.pardir, "docs", "connectome.json")
 
 CHEMICAL_URL = "https://networks.skewed.de/net/celegans_2019/files/hermaphrodite_chemical.csv.zip"
 GAP_URL = "https://networks.skewed.de/net/celegans_2019/files/hermaphrodite_gap_junction.csv.zip"

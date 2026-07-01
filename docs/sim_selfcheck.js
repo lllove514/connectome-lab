@@ -4,7 +4,7 @@
 // spontaneously fires, non-determinism, NaNs, pokes that fizzle to one dot, and
 // the letterbox coordinate bug where fringe clicks missed on a non-square canvas.
 //
-//   node web/sim_selfcheck.js
+//   node docs/sim_selfcheck.js
 //
 // Exits 0 on PASS, 1 on FAIL.
 
