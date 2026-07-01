@@ -16,27 +16,41 @@
 
 ### What it is
 
-The C. elegans nervous system is the only one that's been mapped cell by cell, every neuron and every wire. That's 302 neurons and a few thousand synapses, small enough to hold in your head and still do something. I wanted to see it move, not as a static diagram, so I built this.
+C. elegans is the only animal we've mapped neuron by neuron. All 302 of them, plus every
+connection between them, sitting in a public dataset. I'd read about it for a while and wanted
+to poke at the actual thing instead of looking at diagrams, so I put the real wiring in the
+browser and made it run.
 
-You get the real wiring from Cook et al. 2019 laid out on a canvas. Click a neuron and it dumps current in, then a simple spiking model pushes the signal through the actual synapses and you watch the wave spread and die out. There's a teaching rail on the side that explains what you're looking at, and a tutor you can ask.
+Click a neuron and it fires. The signal travels through the real synapses from the 2019 dataset
+using a leaky integrate-and-fire model, and you can watch it spread and fade. Getting that to
+look right took me longer than the rest of it. Too much current and the whole worm lights up and
+stays on. Too little and it dies at the first cell. There's a panel on the side that explains
+what's happening while it happens, and a tutor you can ask about the neuron you clicked.
 
-No framework, no build step. It's plain JavaScript drawing to a canvas.
+It's vanilla JS and an HTML canvas. No React, no build step, nothing to install.
 
 ### Features
 
-- interactive graph of all 302 neurons, colored by type, with the real chemical synapses and gap junctions
-- leaky integrate-and-fire simulation running on those synapses, poke a neuron and watch it propagate then settle
-- teaching rail: an oscilloscope of the selected neuron's membrane voltage, step mode, a sandbox to tune threshold/gain/leak, a guided touch-reflex lesson, signal tracing (shortest path), N-hop reach, and a glossary
-- context-aware AI tutor that reads whichever neuron you've selected and the live sim state, so "why did this fire" means something
+- The full graph of all 302 neurons, colored by type, with the real chemical synapses and gap
+  junctions.
+- A leaky integrate-and-fire simulation on those synapses. Poke a neuron and watch it spread and
+  settle.
+- A teaching panel with an oscilloscope of the selected neuron's voltage, a step button, sliders
+  for threshold, gain, and leak, a walkthrough of the touch-reflex circuit, signal tracing
+  between two neurons, an N-hop reach view, and a glossary.
+- A tutor that knows which neuron you've selected and what the sim is doing, so a question like
+  "why did this one fire" gets answered about that specific neuron.
 
 ### Try it
 
 Live: https://lllove514.github.io/connectome-lab/
 
-Two ways to use it:
+Two ways to run it:
 
-- just open the link. the graph, the simulation, and the teaching tools all run client-side, nothing to install.
-- want the tutor? it needs a DeepSeek key. paste your own into the tutor panel, it stays in memory and is never saved. or clone the repo and run it with your key.
+- Open the link. The graph, the sim, and the teaching tools run in your browser. The tutor works
+  too, using my key through a proxy, so you don't need one.
+- Clone the repo and run it yourself. For the tutor you paste your own DeepSeek key into the
+  panel, and it stays in memory.
 
 ### Run it locally
 
