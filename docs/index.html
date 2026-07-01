@@ -16,26 +16,34 @@
     <input id="search" type="search" placeholder="find a neuron, like ALM"
            aria-label="Find a neuron by name" autocomplete="off" spellcheck="false">
 
-    <div id="controls" role="group" aria-label="Simulation controls">
-      <button id="simToggle" type="button" aria-pressed="false">Simulate</button>
-      <button id="play" type="button" disabled>Play</button>
-      <button id="step" type="button" disabled>Step</button>
+    <!-- Tier 1: the primary simulation controls, grouped as one unit. -->
+    <div id="sim-controls" role="group" aria-label="Simulation controls">
+      <span class="group-label">simulation</span>
+      <div class="ctl-row">
+        <button id="simToggle" type="button" aria-pressed="false">Simulate</button>
+        <button id="play" type="button" disabled>Play</button>
+        <button id="step" type="button" disabled>Step</button>
+        <button id="reset" type="button" disabled>Reset</button>
+      </div>
       <label id="speedwrap">speed
         <input id="speed" type="range" min="1" max="60" value="20" disabled
                aria-label="simulation speed in ticks per second">
       </label>
-      <label id="dbgwrap"><input id="debug" type="checkbox"> debug</label>
-      <label id="musclewrap"><input id="muscleToggle" type="checkbox"> show muscles</label>
-      <button id="copylink" type="button" title="copy a link to this exact view">copy link</button>
-      <button id="recgif" type="button" title="record the next poke as a looping GIF">record GIF</button>
-      <span id="recstatus" role="status" aria-live="polite"></span>
-      <button id="statsBtn" type="button" title="show network statistics"
-              aria-haspopup="dialog" aria-expanded="false">network stats</button>
-      <button id="shortcutsBtn" type="button" title="keyboard shortcuts and the command palette"
-              aria-haspopup="dialog">? shortcuts</button>
     </div>
+
+    <!-- Tier 2: quieter utilities, set apart so they do not compete with tier 1. -->
+    <div id="utilities" role="group" aria-label="Tools">
+      <button id="copylink" class="util" type="button" title="copy a link to this exact view">copy link</button>
+      <button id="recgif" class="util" type="button" title="record the next poke as a looping GIF">record GIF</button>
+      <button id="statsBtn" class="util" type="button" title="show network statistics"
+              aria-haspopup="dialog" aria-expanded="false">stats</button>
+      <button id="shortcutsBtn" class="util" type="button" title="keyboard shortcuts and the command palette"
+              aria-haspopup="dialog">shortcuts</button>
+      <label id="dbgwrap" class="util-check"><input id="debug" type="checkbox"> debug</label>
+      <span id="recstatus" role="status" aria-live="polite"></span>
+    </div>
+
     <p id="hint" class="sub" role="status" aria-live="polite"></p>
-    <p id="musclestat" class="sub" role="status" aria-live="polite" hidden></p>
   </div>
 
   <div id="legend" role="img" aria-label="Neuron type color key"></div>
@@ -70,8 +78,30 @@
     </div>
   </div>
 
-  <!-- Teaching rail, docked right. -->
-  <div id="teach" role="region" aria-label="Teaching tools">
+  <!-- Right rail. Two groups stacked in one scrolling column: the top-level
+       network modes (tier 3) and the teaching tools. -->
+  <div id="teach" role="region" aria-label="Network features and teaching tools">
+    <div id="features" role="group" aria-label="Network features">
+      <div class="rail-head">Explore the network</div>
+      <div class="feat">
+        <button class="feat-toggle" id="compareToggle" type="button" aria-pressed="false">
+          <span class="feat-name">Compare with a random network</span>
+          <span class="feat-state">off</span>
+        </button>
+        <p class="feat-desc">Put the real wiring next to a random network of the same size and poke the
+          same neuron on both, to see that a real nervous system is not wired at random.</p>
+      </div>
+      <div class="feat">
+        <button class="feat-toggle" id="muscleToggle" type="button" aria-pressed="false">
+          <span class="feat-name">Show the muscles</span>
+          <span class="feat-state">off</span>
+        </button>
+        <p class="feat-desc">Add the 95 body-wall muscles as a small body chart. They light up when their
+          motor neurons fire, so you can see which way the worm would bend.</p>
+        <p id="musclestat" class="feat-readout" role="status" aria-live="polite" hidden></p>
+      </div>
+    </div>
+
     <div id="teach-head">
       <span>How a neuron fires</span>
       <button id="glossaryBtn" type="button" aria-label="Open the glossary" aria-expanded="false">?</button>
@@ -80,6 +110,27 @@
     <div id="teach-tools"></div>
   </div>
   <div id="glossary" role="dialog" aria-label="Glossary" hidden></div>
+
+  <!-- Compare mode readout strip, docked bottom. Hidden until you enter Compare;
+       the two networks are drawn on the main canvas, this is the live comparison. -->
+  <div id="compare" role="region" aria-label="Compare real and random networks" hidden>
+    <p id="cmp-caption">A real nervous system is not wired at random. On the left is the worm's
+      actual connectome. On the right is a network with the same 302 neurons, the same number of
+      connections, and the same connection strengths, wired to random partners. Same poke, same
+      model. Watch how differently the two behave.</p>
+    <div id="cmp-cols">
+      <div class="cmp-col">
+        <div class="cmp-title">Real connectome</div>
+        <div id="cmp-read-real" class="cmp-read"></div>
+      </div>
+      <div class="cmp-col">
+        <div class="cmp-title">Randomly wired, same size</div>
+        <div id="cmp-read-rand" class="cmp-read"></div>
+      </div>
+    </div>
+    <p class="cap" id="cmp-hint">Click a neuron on either side to poke the same one on both, then use the
+      simulation controls (Play, Step, Reset) to run the two networks together.</p>
+  </div>
 
   <script src="sim.js"></script>
   <script src="app.js"></script>
@@ -91,5 +142,6 @@
   <script src="record.js"></script>
   <script src="stats.js"></script>
   <script src="muscles.js"></script>
+  <script src="compare.js"></script>
 </body>
 </html>

@@ -20,6 +20,7 @@ const search = document.getElementById("search");
 const simToggleBtn = document.getElementById("simToggle");
 const playBtn = document.getElementById("play");
 const stepBtn = document.getElementById("step");
+const resetBtn = document.getElementById("reset");
 const speedSlider = document.getElementById("speed");
 const hint = document.getElementById("hint");
 const debugChk = document.getElementById("debug");
@@ -146,12 +147,23 @@ function init(data) {
   canvas.addEventListener("click", onClick);
   search.addEventListener("input", onSearch);
 
+  // One set of playback controls, reused everywhere. In Compare mode the same
+  // Play/Step/Reset drive both networks in lockstep (compare.js); otherwise they
+  // drive the single-network sim.
   simToggleBtn.addEventListener("click", () => setSimMode(!simMode));
   playBtn.addEventListener("click", () => {
+    if (typeof Compare !== "undefined" && Compare.active) { Compare.playPause(); return; }
     if (playing) { pause(); manual = true; } // Pause: take manual control
     else { manual = false; play(); } // Play: hand control back to the clock
   });
-  stepBtn.addEventListener("click", stepOnce);
+  stepBtn.addEventListener("click", () => {
+    if (typeof Compare !== "undefined" && Compare.active) { Compare.step(); return; }
+    stepOnce();
+  });
+  resetBtn.addEventListener("click", () => {
+    if (typeof Compare !== "undefined" && Compare.active) { Compare.reset(); return; }
+    resetSim();
+  });
   speedSlider.addEventListener("input", () => {
     simSpeed = Number(speedSlider.value); // tickLoop reads this each step, so it adapts live
   });
@@ -280,6 +292,9 @@ function resize() {
 }
 
 function draw() {
+  // Compare mode takes over the whole canvas (two networks side by side) and
+  // paints its own background, so hand off before the normal single-network draw.
+  if (typeof Compare !== "undefined" && Compare.active) { Compare.draw(ctx); return; }
   ctx.fillStyle = "#0a0c10";
   ctx.fillRect(0, 0, view.w, view.h);
   if (simMode && sim) drawSim();
@@ -445,14 +460,29 @@ function ring(n, r, color, width) {
 
 // --- Simulation control -------------------------------------------------------
 
+// The playback controls (Play, Step, Reset, speed) are live in Simulate mode and
+// in Compare mode; they are the same buttons in both. Compare.enter/exit call
+// this too, so there is one place that owns their enabled state.
+function setPlaybackEnabled(on) {
+  for (const el of [playBtn, stepBtn, resetBtn, speedSlider]) el.disabled = !on;
+}
+
+// Reset the single-network sim: stop the clock and clear the wave back to quiet.
+function resetSim() {
+  if (!sim) return;
+  pause();
+  manual = false;
+  clearSim();
+  teachHook("onTick", sim.state, sim.activation); // refresh the oscilloscope/state readouts
+  draw();
+}
+
 function setSimMode(on) {
   simMode = on;
   simToggleBtn.classList.toggle("on", on);
   simToggleBtn.setAttribute("aria-pressed", on ? "true" : "false");
   simToggleBtn.textContent = on ? "Explore" : "Simulate";
-  speedSlider.disabled = !on;
-
-  for (const el of [playBtn, stepBtn]) el.disabled = !on;
+  setPlaybackEnabled(on);
   if (on) {
     setSelected(null); // leave explore highlighting behind (and notify teach)
     matches = new Set();
@@ -533,6 +563,9 @@ function pick(px, py) {
 }
 
 function onMove(e) {
+  // Compare mode owns the canvas and has its own two-panel layout, so the
+  // single-network hover/tooltip would point at the wrong nodes. Skip it.
+  if (typeof Compare !== "undefined" && Compare.active) { tooltip.hidden = true; return; }
   const { x, y } = eventXY(e);
   const n = pick(x, y);
   setHover(n ? n.id : null);
@@ -562,6 +595,8 @@ function setHover(id) {
 
 function onClick(e) {
   const { x, y } = eventXY(e);
+  // In Compare mode a click pokes the same neuron on both networks (compare.js).
+  if (typeof Compare !== "undefined" && Compare.active) { Compare.onClick(x, y); return; }
   const n = pick(x, y);
   showDebug(x, y, n);
 

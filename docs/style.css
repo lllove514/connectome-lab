@@ -88,29 +88,37 @@ html, body {
 #search:focus { border-color: rgba(120, 180, 255, 0.55); }
 #search::placeholder { color: #737d8c; }
 
-#controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-  margin-top: 10px;
+/* Tier 1: the primary simulation controls, boxed and labelled so they read as
+   one unit and clearly the main controls. */
+#sim-controls {
+  margin-top: 12px;
+  padding: 9px 10px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  border-radius: 7px;
   font-family: ui-monospace, Menlo, Consolas, monospace;
   font-size: 12px;
+}
+.group-label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--muted);
 }
-
-#controls button {
-  padding: 5px 10px;
+#sim-controls .ctl-row { display: flex; flex-wrap: wrap; gap: 6px; }
+#sim-controls button {
+  padding: 6px 12px;
   font: inherit;
   color: var(--fg);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--line);
   border-radius: 5px;
   cursor: pointer;
 }
-
-#controls button:hover:not(:disabled) { background: rgba(255, 255, 255, 0.09); }
-#controls button:disabled { opacity: 0.35; cursor: default; }
+#sim-controls button:hover:not(:disabled) { background: rgba(255, 255, 255, 0.1); }
+#sim-controls button:disabled { opacity: 0.35; cursor: default; }
 
 #simToggle.on {
   color: #ffd27f;
@@ -118,13 +126,35 @@ html, body {
   background: rgba(255, 180, 84, 0.08);
 }
 
-#speedwrap { display: flex; align-items: center; gap: 6px; }
-#controls input[type="range"] { width: 96px; accent-color: #ffb454; }
-#controls input[type="range"]:disabled { opacity: 0.35; }
+#speedwrap { display: flex; align-items: center; gap: 6px; margin-top: 9px; color: var(--muted); }
+#speedwrap input[type="range"] { width: 110px; accent-color: #ffb454; }
+#speedwrap input[type="range"]:disabled { opacity: 0.35; }
 
-#hint { margin: 8px 0 0; min-height: 14px; }
+/* Tier 2: quieter utilities, smaller and lower contrast, set apart from tier 1. */
+#utilities {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+#utilities .util {
+  padding: 3px 8px;
+  font: inherit;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+}
+#utilities .util:hover { color: var(--fg); background: rgba(255, 255, 255, 0.06); }
+#utilities .util-check { display: flex; align-items: center; gap: 4px; }
 
 #recstatus { color: var(--muted); font-size: 11px; }
+#hint { margin: 10px 0 0; min-height: 14px; }
 
 /* Network stats, a toggled card in the instrument style. Floats top-centre over
    the graph only while open, so it never crowds the docked panels. */
@@ -236,7 +266,7 @@ html, body {
 #tooltip .name { color: #fff; font-weight: 600; }
 #tooltip .dim { color: var(--muted); }
 
-#dbgwrap, #musclewrap { display: flex; align-items: center; gap: 4px; }
+#dbgwrap { display: flex; align-items: center; gap: 4px; }
 
 #debugout {
   position: fixed;
@@ -295,6 +325,51 @@ html, body {
   text-transform: uppercase;
   font-size: 11px;
 }
+
+/* Tier 3: top-level network modes, presented in the right rail as peers to the
+   teaching tools. Each is a card with a name, a one-line description, and a clear
+   on/off state you toggle to enter or leave the mode. */
+#features { display: flex; flex-direction: column; gap: 8px; }
+#features .rail-head {
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+.feat {
+  background: rgba(12, 16, 22, 0.9);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.feat-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+  padding: 9px 10px;
+  font: inherit;
+  text-align: left;
+  color: var(--fg);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.feat-toggle:hover { background: rgba(255, 255, 255, 0.05); }
+.feat-name { font-weight: 600; }
+.feat-state {
+  flex: none;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.feat-toggle.on { background: rgba(255, 180, 84, 0.08); }
+.feat-toggle.on .feat-name,
+.feat-toggle.on .feat-state { color: #ffd27f; }
+.feat-desc { margin: 0; padding: 0 10px 9px; color: var(--muted); line-height: 1.5; }
+.feat-readout { margin: 0; padding: 0 10px 10px; color: #ffd27f; line-height: 1.5; }
 
 #glossaryBtn {
   width: 22px;
@@ -634,3 +709,35 @@ html, body {
   cursor: pointer;
 }
 #help-close:hover { background: rgba(255, 255, 255, 0.09); }
+
+/* Compare mode: a readout strip docked to the bottom while the two networks are
+   drawn on the canvas above it. Same instrument surface as the other panels.
+   Keep its height near the STRIP_H reserve in compare.js so the graphs above
+   never hide behind it. */
+#compare {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 7;
+  padding: 10px 16px 12px;
+  background: rgba(12, 16, 22, 0.94);
+  border-top: 1px solid var(--line);
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--fg);
+}
+#compare[hidden] { display: none; }
+#cmp-caption {
+  margin: 0 auto 8px;
+  max-width: 900px;
+  text-align: center;
+  color: var(--muted);
+  line-height: 1.5;
+}
+#cmp-cols { display: flex; justify-content: center; gap: 48px; }
+.cmp-col { min-width: 220px; }
+.cmp-title { color: #ffd27f; margin-bottom: 3px; }
+.cmp-read { line-height: 1.6; }
+.cmp-read b { color: #fff; font-weight: 600; }
+#cmp-hint { margin: 8px auto 0; max-width: 900px; text-align: center; color: var(--muted); }

@@ -66,6 +66,8 @@
       { id: "trace", label: "Open trace a signal", run: () => Teach.activateTool({ tool: "trace" }) },
       { id: "reach", label: "Open how far a signal spreads", run: () => Teach.activateTool({ tool: "reach" }) },
       { id: "glossary", label: "Open the glossary", run: openGlossary },
+      { id: "compare", label: "Enter or leave Compare mode", run: () => clickId("compareToggle") },
+      { id: "muscles", label: "Show or hide the muscles", run: () => clickId("muscleToggle") },
       { id: "copy", label: "Copy the share link", run: () => clickId("copylink") },
     ];
   }

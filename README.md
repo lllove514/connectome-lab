@@ -39,6 +39,11 @@ It's vanilla JS and an HTML canvas. No React, no build step, nothing to install.
   for threshold, gain, and leak, guided walkthroughs of a few circuits (the gentle touch reflex,
   tap withdrawal, chemotaxis, and egg laying), signal tracing between two neurons, an N-hop reach
   view, and a glossary.
+- A Compare mode that puts the real connectome next to a randomly-wired network of the same size,
+  running the same model on both. The random network has the same 302 neurons, the same number of
+  connections, and the same connection strengths, just wired to random partners. Poke a neuron and
+  you poke the same one on both sides, then watch a readout of how far and how hard the signal
+  spreads through each. Same poke, same model, different wiring, different behavior.
 - A tutor that knows which neuron you've selected and what the sim is doing, so a question like
   "why did this one fire" gets answered about that specific neuron.
 - A muscle layer you can turn on. It draws the 95 body-wall muscles and the motor neuron
