@@ -4,7 +4,7 @@
   <a href="https://lllove514.github.io/connectome-lab/"><img alt="Live demo" src="https://img.shields.io/badge/Live%20Demo-ffb454?style=for-the-badge&labelColor=0a0c10"></a>
   <img alt="Vanilla JS" src="https://img.shields.io/badge/Vanilla%20JS-4aa3ff?style=for-the-badge&labelColor=0a0c10">
   <img alt="No build step" src="https://img.shields.io/badge/No%20build%20step-ff6b8a?style=for-the-badge&labelColor=0a0c10">
-  <img alt="License MIT" src="https://img.shields.io/badge/License-MIT-ffb454?style=for-the-badge&labelColor=0a0c10">
+  <a href="./LICENSE"><img alt="License MIT" src="https://img.shields.io/badge/License-MIT-ffb454?style=for-the-badge&labelColor=0a0c10"></a>
 </p>
 
 **Connectome Lab** is an interactive map of the C. elegans connectome, the whole 302-neuron nervous system of a worm, that you can poke and watch fire in the browser.
@@ -78,4 +78,4 @@ There's no explicit open-data license on the source, so the data is used here un
 
 ### License
 
-MIT, for the code. It doesn't cover the connectome data, see above.
+MIT, for the code. See [`LICENSE`](./LICENSE). It doesn't cover the connectome data, see above.
