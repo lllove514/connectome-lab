@@ -31,7 +31,34 @@
   <div id="tooltip" hidden></div>
   <div id="debugout" hidden></div>
 
-  <!-- Teaching rail, docked right. The left side is reserved for the AI tutor. -->
+  <!-- AI tutor, docked left (the reserved side). Collapsible; reads the selected
+       neuron and live sim state to answer about whatever you are looking at. -->
+  <div id="tutor">
+    <div id="tutor-head">
+      <span>Tutor</span>
+      <button id="tutor-toggle" type="button" title="show or hide the tutor">▾</button>
+    </div>
+    <div id="tutor-body">
+      <div id="tutor-ctx"></div>
+      <div id="tutor-log"></div>
+      <div id="tutor-chips"></div>
+      <form id="tutor-form">
+        <input id="tutor-input" type="text" autocomplete="off"
+               placeholder="ask about the selected neuron">
+        <button id="tutor-send" type="submit">ask</button>
+      </form>
+      <div id="tutor-key">
+        <input id="tutor-key-input" type="password" autocomplete="off"
+               placeholder="paste DeepSeek API key">
+        <button id="tutor-key-change" type="button" hidden>change key</button>
+        <span id="tutor-key-status" class="cap"></span>
+      </div>
+      <div id="tutor-note" class="cap">Key stays in memory only. The hosted site uses a server side proxy.</div>
+      <div id="tutor-status" class="cap"></div>
+    </div>
+  </div>
+
+  <!-- Teaching rail, docked right. -->
   <div id="teach">
     <div id="teach-head">
       <span>How a neuron fires</span>
@@ -45,5 +72,6 @@
   <script src="sim.js"></script>
   <script src="app.js"></script>
   <script src="teach.js"></script>
+  <script src="chat.js"></script>
 </body>
 </html>

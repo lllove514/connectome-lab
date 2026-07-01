@@ -106,10 +106,24 @@ function init(data) {
   buildLegend();
   resize();
 
-  window.addEventListener("resize", () => {
-    resize();
-    draw();
-  });
+  // Refit on any canvas size change: a ResizeObserver catches every case (window
+  // resize, zoom, devtools docking, retina dpr change), coalesced to one refit
+  // per frame so a drag-resize does not thrash. resize() recomputes the backing
+  // store AND the shared transform, so the graph refits and hit-testing stays
+  // exact. A plain window listener backs it up where ResizeObserver is missing.
+  let refitPending = false;
+  const refit = () => {
+    if (refitPending) return;
+    refitPending = true;
+    requestAnimationFrame(() => {
+      refitPending = false;
+      resize();
+      draw();
+    });
+  };
+  if (typeof ResizeObserver !== "undefined") new ResizeObserver(refit).observe(canvas);
+  window.addEventListener("resize", refit);
+
   canvas.addEventListener("mousemove", onMove);
   canvas.addEventListener("mouseleave", () => setHover(null));
   canvas.addEventListener("click", onClick);
@@ -182,11 +196,52 @@ function updateGlow() {
   return { firedCount, maxGlow };
 }
 
+// Reserve space around the fixed panels so nodes never render underneath them.
+// The panels live in two columns — title + tutor on the left, teaching rail on
+// the right — so we reserve those columns (plus a strip for the bottom-centre
+// legend) and fit the graph into the band between. Widths are measured live, so
+// this tracks the panels as they shrink on narrow windows.
+const EDGE = 12; // base breathing room at the viewport edge
+const PANEL_GAP = 8; // clearance between a panel and the nearest node (makeTransform adds 28 more)
+const LEGEND_CLEARANCE = 64; // strip kept free at the bottom for the centre legend
+const MIN_BAND_W = 150; // never let the graph band shrink below this many CSS px
+const MIN_BAND_H = 130;
+
+function panelInset() {
+  const W = view.w, H = view.h;
+  const reachRight = (id) => {
+    const el = document.getElementById(id);
+    const r = el && el.getBoundingClientRect();
+    return r && r.width ? r.right : 0; // panel's right edge from the left, 0 if not laid out
+  };
+  const reachIn = (id) => {
+    const el = document.getElementById(id);
+    const r = el && el.getBoundingClientRect();
+    return r && r.width ? W - r.left : 0; // how far the panel reaches in from the right edge
+  };
+
+  // Reserve the two panel columns: title + tutor on the left, teaching rail on
+  // the right, plus a bottom strip for the centre legend.
+  let left = Math.max(reachRight("ui"), reachRight("tutor")) + PANEL_GAP;
+  let right = reachIn("teach") + PANEL_GAP;
+  let top = EDGE, bottom = LEGEND_CLEARANCE;
+
+  // If the full reservation would crush the graph (very narrow/short windows),
+  // shrink it proportionally so the whole graph still fits and stays centered.
+  // The panels then overlap the graph, but they are translucent and pass clicks
+  // through, so neurons under them stay visible and pokable.
+  const fit = (a, b, span, minBand) =>
+    a + b > span - minBand && a + b > 0 ? (span - minBand) / (a + b) : 1;
+  const kx = fit(left, right, W, MIN_BAND_W);
+  const ky = fit(top, bottom, H, MIN_BAND_H);
+  return { left: Math.max(0, left * kx), right: Math.max(0, right * kx), top: top * ky, bottom: bottom * ky };
+}
+
 // Rebuild the shared transform from the data bounds and the current canvas CSS
 // size, then cache each node's screen position for fast edge drawing. Backing
 // store is CSS-size * dpr; the context is scaled by dpr once so all drawing (and
 // the transform) happens in CSS pixels. Called on load and every resize, so the
-// graph always refills the current canvas.
+// graph always refills the current canvas and stays clear of the panels.
 function resize() {
   const dpr = window.devicePixelRatio || 1;
   const w = window.innerWidth;
@@ -199,7 +254,7 @@ function resize() {
 
   view.w = w;
   view.h = h;
-  transform = Sim.makeTransform(nodes, w, h);
+  transform = Sim.makeTransform(nodes, w, h, panelInset());
   for (const n of nodes) {
     const s = Sim.toScreen(transform, n.x, n.y);
     n.sx = s.x;

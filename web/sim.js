@@ -152,7 +152,12 @@
   // place nodes before measuring distance. Because there is only one object, the
   // renderer and the hit-test cannot drift apart on any canvas shape.
 
-  function makeTransform(nodes, cssW, cssH) {
+  // `inset` (optional) reserves CSS-px margins on each side — {left, top, right,
+  // bottom} — so the caller can keep the graph clear of fixed panels. Omitted, it
+  // fits the whole canvas with a uniform 28px pad (the original behaviour, which
+  // the self-check pins). The fit is uniform-scaled and centered inside whatever
+  // inner box remains, so the graph keeps its shape and never squashes.
+  function makeTransform(nodes, cssW, cssH, inset) {
     let minx = Infinity, maxx = -Infinity, miny = Infinity, maxy = -Infinity;
     for (const n of nodes) {
       if (n.x < minx) minx = n.x;
@@ -161,12 +166,19 @@
       if (n.y > maxy) maxy = n.y;
     }
     const pad = 28; // CSS-px margin so fringe nodes are not jammed against the edge
+    const m = inset || {};
+    const left = pad + (m.left || 0);
+    const top = pad + (m.top || 0);
+    const right = pad + (m.right || 0);
+    const bottom = pad + (m.bottom || 0);
+    const boxW = Math.max(1, cssW - left - right);
+    const boxH = Math.max(1, cssH - top - bottom);
     const dataW = maxx - minx || 1;
     const dataH = maxy - miny || 1;
-    const scale = Math.min((cssW - 2 * pad) / dataW, (cssH - 2 * pad) / dataH);
-    // Center the scaled bounding box: pull minx*scale back to the left padding edge.
-    const offsetX = (cssW - dataW * scale) / 2 - minx * scale;
-    const offsetY = (cssH - dataH * scale) / 2 - miny * scale;
+    const scale = Math.min(boxW / dataW, boxH / dataH);
+    // Center the scaled bounding box inside the inner [left..cssW-right] box.
+    const offsetX = left + (boxW - dataW * scale) / 2 - minx * scale;
+    const offsetY = top + (boxH - dataH * scale) / 2 - miny * scale;
     return { scale, offsetX, offsetY };
   }
 
