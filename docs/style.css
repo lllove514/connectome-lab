@@ -336,6 +336,16 @@ html, body {
 }
 #teach button:hover { background: rgba(255, 255, 255, 0.09); }
 
+/* Circuit picker inside the lesson panel: small buttons that wrap, the active
+   one lit in the accent color. */
+#lesson-picker { flex-wrap: wrap; }
+.lesson-pick { padding: 3px 7px; font-size: 11px; }
+.lesson-pick.on {
+  color: #ffd27f;
+  border-color: rgba(255, 180, 84, 0.55);
+  background: rgba(255, 180, 84, 0.10);
+}
+
 #glossary {
   position: fixed;
   right: min(336px, 46vw); /* stay beside the rail on wide, on-screen on narrow */

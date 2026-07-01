@@ -29,12 +29,23 @@ synapses and no accepted role, so it is left `unknown`.
 
 ## Teaching layer
 
-The guided touch-reflex circuit (`docs/circuits.json`) and the glossary in
-`docs/teach.js` are curated from WormAtlas (https://www.wormatlas.org) and the
-C. elegans touch-circuit literature (Chalfie et al.; the gentle-touch reflex).
-Neuron memberships (ALM/AVM/PLM touch cells, the AVA/AVB/AVD/PVC command
-interneurons, and representative VA/DA/VB/DB motor neurons) follow the
-WormAtlas neuron descriptions.
+The guided circuits (`docs/circuits.json`) and the glossary in `docs/teach.js`
+are curated from WormAtlas (https://www.wormatlas.org) and the C. elegans
+literature. Each circuit's neuron memberships and narration are drawn from the
+published descriptions of these behaviors, not from the connectivity data:
+
+- Gentle touch reflex and tap withdrawal: the ALM/AVM/PLM/PVM touch receptor
+  neurons, the AVA/AVB/AVD/PVC command interneurons, and representative VA/DA/
+  VB/DB motor neurons (Chalfie et al.; Wicks and Rankin, on the tap response).
+- Chemotaxis: the AWA/AWC/ASE amphid sensory neurons into the AIA/AIB/AIY/AIZ
+  and RIA interneuron layer (WormAtlas; the C. elegans chemotaxis literature).
+- Egg laying: the serotonergic HSN neurons and the VC motor neurons (WormAtlas;
+  the egg-laying circuit literature). The vulval muscles they drive are not
+  neurons and are not in this dataset.
+
+Any named neuron not present in `docs/connectome.json` is skipped by the app
+rather than renamed or invented. Memberships are a teaching simplification, not
+a claim about every synapse in the data.
 
 ## License and reuse
 

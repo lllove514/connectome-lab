@@ -22,7 +22,8 @@
       "Bash(node --check vendor/gif.js)",
       "Bash(node --check vendor/gif.worker.js)",
       "Bash(node --check stats.js)",
-      "Bash(node stats_selfcheck.js)"
+      "Bash(node stats_selfcheck.js)",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('circuits.json','utf8'\\)\\); console.log\\('valid, circuits:', Object.keys\\(JSON.parse\\(require\\('fs'\\).readFileSync\\('circuits.json','utf8'\\)\\)\\).join\\(', '\\)\\)\")"
     ]
   }
 }

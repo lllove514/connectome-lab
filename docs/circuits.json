@@ -1,6 +1,6 @@
 {
   "touch_reflex": {
-    "name": "Gentle-touch withdrawal reflex",
+    "name": "Gentle touch reflex",
     "description": "A light touch to the body wall makes the worm back away: the touch neurons excite the command interneurons, which drive the motor neurons that reverse locomotion.",
     "neurons": [
       "ALML", "ALMR", "AVM",
@@ -9,6 +9,69 @@
       "AVBL", "AVBR", "PVCL", "PVCR",
       "VA01", "DA01",
       "VB01", "DB01"
+    ],
+    "steps": [
+      { "text": "A light touch near the head is picked up by the touch neurons ALM and AVM. Watch ALM fire.",
+        "ids": ["ALML", "ALMR", "AVM"], "poke": "ALML" },
+      { "text": "The touch neurons wake up the command interneurons. AVA and AVD steer the worm backward, while from the tail the PLM touch cells feed the forward pair, AVB and PVC.",
+        "ids": ["AVAL", "AVAR", "AVDL", "AVDR", "AVBL", "AVBR", "PVCL", "PVCR"] },
+      { "text": "AVA drives the backward motor neurons VA and DA, the body muscles pull, and the worm reverses. Watch the signal reach the motors.",
+        "ids": ["AVAL", "AVAR", "VA01", "DA01"], "poke": "ALML" },
+      { "text": "The forward team, AVB and PVC into VB and DB, would push the worm ahead instead. The two teams compete to set the direction.",
+        "ids": ["AVBL", "AVBR", "PVCL", "PVCR", "VB01", "DB01"] }
+    ]
+  },
+  "tap_withdrawal": {
+    "name": "Tap withdrawal",
+    "description": "A tap on the dish is felt all along the body. The front touch cells push the worm to reverse and the tail touch cells push it forward, and the command interneurons settle which way it goes.",
+    "neurons": [
+      "ALML", "ALMR", "AVM", "PLML", "PLMR", "PVM",
+      "AVAL", "AVAR", "AVDL", "AVDR",
+      "AVBL", "AVBR", "PVCL", "PVCR",
+      "VA01", "DA01", "VB01", "DB01"
+    ],
+    "steps": [
+      { "text": "A tap makes the whole plate vibrate, so touch cells along the body fire at once. The front cells ALM and AVM and the tail cells PLM and PVM all pick it up. Watch ALM fire.",
+        "ids": ["ALML", "ALMR", "AVM", "PLML", "PLMR", "PVM"], "poke": "ALML" },
+      { "text": "The front touch cells favor reversal. They feed the backward command pair, AVA and AVD.",
+        "ids": ["ALML", "ALMR", "AVM", "AVAL", "AVAR", "AVDL", "AVDR"], "poke": "ALML" },
+      { "text": "The tail touch cells favor moving forward. PLM feeds the forward command pair, AVB and PVC. Watch a poke from the tail.",
+        "ids": ["PLML", "PLMR", "AVBL", "AVBR", "PVCL", "PVCR"], "poke": "PLML" },
+      { "text": "The command interneurons drive the motor neurons, VA and DA to back up or VB and DB to go forward. Which way the worm moves depends on the balance between the front and tail signals.",
+        "ids": ["VA01", "DA01", "VB01", "DB01"] }
+    ]
+  },
+  "chemotaxis": {
+    "name": "Chemotaxis",
+    "description": "The worm steers toward attractive smells and tastes. Amphid sensory neurons in the head detect the chemical and pass it to a layer of interneurons that bias whether the worm keeps going straight or turns.",
+    "neurons": [
+      "AWCL", "AWCR", "AWAL", "AWAR", "ASEL", "ASER",
+      "AIYL", "AIYR", "AIAL", "AIAR", "AIBL", "AIBR", "AIZL", "AIZR",
+      "RIAL", "RIAR"
+    ],
+    "steps": [
+      { "text": "An attractive odor or salt is detected by amphid sensory neurons in the head. AWC and AWA sense volatile odors, ASE senses salts and other water soluble cues. Watch AWC fire.",
+        "ids": ["AWCL", "AWCR", "AWAL", "AWAR", "ASEL", "ASER"], "poke": "AWCL" },
+      { "text": "These sensors feed a small group of interneurons, mainly AIY, AIA, AIB, and AIZ, which combine the input.",
+        "ids": ["AIYL", "AIYR", "AIAL", "AIAR", "AIBL", "AIBR", "AIZL", "AIZR"], "poke": "AWCL" },
+      { "text": "The interneurons bias locomotion. In the usual model the worm lengthens forward runs when things improve and makes more turns when they get worse, so it drifts up the gradient. RIA helps steer head bends. This is a simplified sketch of an area still being studied.",
+        "ids": ["AIYL", "AIYR", "AIBL", "AIBR", "RIAL", "RIAR"] }
+    ]
+  },
+  "egg_laying": {
+    "name": "Egg laying",
+    "description": "Two serotonergic HSN neurons and the VC motor neurons drive the vulval muscles to lay an egg. The muscles themselves are not in this map, which shows neurons only.",
+    "neurons": [
+      "HSNL", "HSNR",
+      "VC01", "VC02", "VC03", "VC04", "VC05", "VC06"
+    ],
+    "steps": [
+      { "text": "The two HSN neurons are the main trigger for egg laying. They release serotonin onto the egg laying muscles and onto the VC neurons. Watch HSN fire.",
+        "ids": ["HSNL", "HSNR"], "poke": "HSNL" },
+      { "text": "The six VC motor neurons run along the ventral cord near the vulva and fire around the time of egg laying. They connect to HSN and to the vulval muscles.",
+        "ids": ["VC01", "VC02", "VC03", "VC04", "VC05", "VC06"], "poke": "HSNL" },
+      { "text": "Together HSN and VC contract the vulval muscles to push an egg out. Those muscles are not shown here, so the wave ends at the motor neurons.",
+        "ids": ["HSNL", "HSNR", "VC01", "VC02", "VC03", "VC04", "VC05", "VC06"] }
     ]
   }
 }

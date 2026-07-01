@@ -59,10 +59,26 @@ for (let n = 1; n <= 5; n++) {
 }
 const monotonic = reachCounts.every((c, i) => i === 0 || c >= reachCounts[i - 1]);
 
-// circuit ids resolve
+// Every id a circuit references must resolve: its neuron list, and every lesson
+// step's highlight ids and poke target. Missing ones are reported here; the app
+// skips them (idxSet drops unknown ids) rather than crashing.
 const missing = [];
+const circuitReport = [];
 for (const cid in circuits) {
-  for (const id of circuits[cid].neurons) if (idx(id) === undefined) missing.push(cid + ":" + id);
+  const c = circuits[cid];
+  let resolved = 0;
+  let total = 0;
+  const consider = (id, where) => {
+    total++;
+    if (idx(id) === undefined) missing.push(cid + "." + where + ":" + id);
+    else resolved++;
+  };
+  for (const id of c.neurons) consider(id, "neurons");
+  (c.steps || []).forEach((st, si) => {
+    for (const id of st.ids || []) consider(id, "step" + (si + 1) + ".ids");
+    if (st.poke) consider(st.poke, "step" + (si + 1) + ".poke");
+  });
+  circuitReport.push({ cid: cid, name: c.name, resolved: resolved, total: total, neurons: c.neurons.length, steps: (c.steps || []).length });
 }
 
 // command hubs among the highest-degree neurons
@@ -78,6 +94,11 @@ console.log("  bfsPath " + SRC + "->" + TGT_OK + " : " +
   (pathOk ? pathOk.map((k) => data.nodes[k].id).join(" -> ") + "  (" + (pathOk.length - 1) + " synapses)" : "null"));
 console.log("  bfsPath " + SRC + "->" + TGT_NONE + " : " + (pathNone === null ? "null (unreachable, correct)" : "UNEXPECTED PATH"));
 console.log("  N-hop reach counts (N=1..5) : " + reachCounts.join(", "));
+console.log("  circuits (" + circuitReport.length + "):");
+for (const r of circuitReport) {
+  console.log("    " + r.cid + " (" + r.name + "): " + r.resolved + "/" + r.total +
+    " ids resolve, " + r.neurons + " neurons, " + r.steps + " steps");
+}
 console.log("  circuit ids missing          : " + (missing.length ? missing.join(", ") : "none"));
 console.log("  command-hub ranks            : " + COMMAND.map((id, i) => id + "#" + commandRanks[i]).join(" "));
 
@@ -86,7 +107,7 @@ const checks = [
   { name: "bfsPath returns null for an unreachable target (CANL)", ok: pathNone === null },
   { name: "bfsPath of a node to itself is [self]", ok: Array.isArray(selfPath) && selfPath.length === 1 && selfPath[0] === idx(SRC) },
   { name: "N-hop reach grows monotonically and expands (count[1] < count[5])", ok: monotonic && reachCounts[0] < reachCounts[4] },
-  { name: "every reflex-circuit id resolves to a real node", ok: missing.length === 0 },
+  { name: "every id in every circuit (neurons + step ids + pokes) resolves", ok: missing.length === 0 },
   { name: "every command interneuron ranks in the top 15 by total degree", ok: commandTop15 },
 ];
 

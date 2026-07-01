@@ -33,6 +33,8 @@
     reachN: 2,
     emphasizeCommand: false,
     circuit: null, // Set<number> lesson circuit node indices
+    circuitId: "touch_reflex", // which circuits.json entry is loaded
+    steps: null, // the current circuit's narration steps
     stepSet: null, // Set<number> the neurons the current lesson step is about
     stepIdx: 0,
     scope: { v: new Float32Array(SCOPE_LEN), fired: new Uint8Array(SCOPE_LEN), head: 0, idx: null },
@@ -55,18 +57,9 @@
     unknown: "Its exact job is not pinned down in this dataset.",
   };
 
-  // The touch reflex, one relay per step. The steps that need a live wave poke
-  // ALM so you can watch the signal move through the circuit.
-  const LESSON_STEPS = [
-    { text: "A light touch near the head is picked up by the touch neurons ALM and AVM. Watch ALM fire.",
-      ids: ["ALML", "ALMR", "AVM"], poke: "ALML" },
-    { text: "The touch neurons wake up the command interneurons. AVA and AVD steer the worm backward, while from the tail the PLM touch cells feed the forward pair, AVB and PVC.",
-      ids: ["AVAL", "AVAR", "AVDL", "AVDR", "AVBL", "AVBR", "PVCL", "PVCR"] },
-    { text: "AVA drives the backward motor neurons VA and DA, the body muscles pull, and the worm reverses. Watch the signal reach the motors.",
-      ids: ["AVAL", "AVAR", "VA01", "DA01"], poke: "ALML" },
-    { text: "The forward team, AVB and PVC into VB and DB, would push the worm ahead instead. The two teams compete to set the direction.",
-      ids: ["AVBL", "AVBR", "PVCL", "PVCR", "VB01", "DB01"] },
-  ];
+  // The lesson narration lives in circuits.json now, one entry per circuit, each
+  // with its own steps in { text, ids, poke } shape. Steps that need a live wave
+  // name a neuron to poke so you can watch the signal move through the circuit.
 
   const GLOSSARY = {
     "sensory neuron": "A neuron that notices something in the world, like a touch or a smell, and kicks off a signal.",
@@ -90,7 +83,7 @@
   // DOM handles, filled by build().
   let card, elName, elType, elMeta, elState, scopeCanvas, sctx, toolsEl, glossaryEl, glossaryBtn;
   let sThr, sGain, sLeak, capThr, capGain, capLeak;
-  let lessonNarr, lessonStep, trInfo, trResult, rcN, rcNval, rcCount;
+  let lessonNarr, lessonStep, lessonPicker, trInfo, trResult, rcN, rcNval, rcCount;
 
   function nidx(id) { return sim.net.index.get(id); }
 
@@ -136,7 +129,8 @@
         '<div class="cap" id="cap-leak"></div>' +
         '<button id="s-reset" type="button">put it back to normal</button>' +
       '</div></details>' +
-      '<details id="d-lesson"><summary>Lesson: the touch reflex</summary><div class="t-body">' +
+      '<details id="d-lesson"><summary>Guided circuits</summary><div class="t-body">' +
+        '<div class="t-row" id="lesson-picker"></div>' +
         '<div class="t-narr" id="lesson-narr"></div>' +
         '<div class="t-row"><button id="lesson-prev" type="button">back</button>' +
         '<span id="lesson-step"></span><button id="lesson-next" type="button">next</button></div>' +
@@ -350,26 +344,62 @@
   function wireLesson() {
     lessonNarr = document.getElementById("lesson-narr");
     lessonStep = document.getElementById("lesson-step");
+    lessonPicker = document.getElementById("lesson-picker");
     document.getElementById("lesson-prev").addEventListener("click", () => showStep(state.stepIdx - 1));
     document.getElementById("lesson-next").addEventListener("click", () => showStep(state.stepIdx + 1));
   }
 
-  // Opening the lesson needs a live wave, so it turns Simulate on and pokes ALM.
-  function lessonOpen() {
-    if (!circuits || !circuits.touch_reflex) {
-      lessonNarr.textContent = "The circuit is still loading, give it a second and reopen.";
-      return;
+  // One button per circuit in circuits.json, in file order, so the extra lessons
+  // list themselves with no other wiring.
+  function buildPicker() {
+    if (!lessonPicker || !circuits) return;
+    lessonPicker.innerHTML = "";
+    for (const id in circuits) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "lesson-pick" + (id === state.circuitId ? " on" : "");
+      b.textContent = circuits[id].name;
+      b.dataset.cid = id;
+      b.addEventListener("click", () => selectCircuit(id));
+      lessonPicker.appendChild(b);
     }
-    state.circuit = idxSet(circuits.touch_reflex.neurons);
+  }
+
+  // Load one circuit: highlight its neurons, take its narration, and start at step
+  // one. idxSet quietly drops any neuron that is not in the data, so a circuit
+  // with a missing cell still runs.
+  function selectCircuit(id) {
+    if (!circuits || !circuits[id]) return;
+    state.circuitId = id;
+    state.circuit = idxSet(circuits[id].neurons);
+    state.steps = circuits[id].steps || [];
+    if (lessonPicker) {
+      for (const b of lessonPicker.children) b.classList.toggle("on", b.dataset.cid === id);
+    }
     if (!simMode) setSimMode(true);
     showStep(0);
   }
 
+  // Opening the lesson needs a live wave, so it turns Simulate on and loads a
+  // circuit (the last one picked, or the first available).
+  function lessonOpen() {
+    if (!circuits || !Object.keys(circuits).length) {
+      lessonNarr.textContent = "The circuits are still loading, give it a second and reopen.";
+      return;
+    }
+    if (!circuits[state.circuitId]) state.circuitId = Object.keys(circuits)[0];
+    buildPicker();
+    if (!simMode) setSimMode(true);
+    selectCircuit(state.circuitId);
+  }
+
   function showStep(i) {
-    state.stepIdx = Math.max(0, Math.min(LESSON_STEPS.length - 1, i));
-    const st = LESSON_STEPS[state.stepIdx];
+    const steps = state.steps || [];
+    if (!steps.length) return;
+    state.stepIdx = Math.max(0, Math.min(steps.length - 1, i));
+    const st = steps[state.stepIdx];
     lessonNarr.textContent = st.text;
-    lessonStep.textContent = state.stepIdx + 1 + " of " + LESSON_STEPS.length;
+    lessonStep.textContent = state.stepIdx + 1 + " of " + steps.length;
     state.stepSet = idxSet(st.ids);
     if (st.poke) {
       if (!simMode) setSimMode(true);
@@ -628,7 +658,7 @@
       s.to = nodes[p[p.length - 1]].id;
     }
     if (state.activeTool === "reach") s.reachN = state.reachN;
-    if (state.activeTool === "lesson") s.circuit = "touch_reflex";
+    if (state.activeTool === "lesson") s.circuit = state.circuitId;
     return s;
   }
 
