@@ -1,0 +1,9 @@
+name = "connectome-tutor-proxy"
+main = "src/index.js"
+compatibility_date = "2026-06-30"
+workers_dev = true
+
+# The API key is a secret, never a var and never in the repo. Set it once with:
+#   npx wrangler secret put DEEPSEEK_API_KEY
+# Deploy with:
+#   npx wrangler deploy

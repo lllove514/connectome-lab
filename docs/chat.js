@@ -13,11 +13,22 @@
   // Everything that has to change for the Phase 7 proxy swap lives here. Point
   // `endpoint` at the proxy (which injects the key server-side) and delete the
   // Authorization header in ask(); the request body stays identical.
+  // True on the deployed site, false on localhost. On the hosted site the tutor
+  // talks to the Cloudflare Worker (which holds the key), so no key is pasted; on
+  // localhost it talks to DeepSeek directly with a key from config.local.js or the
+  // paste field.
+  const host = typeof location !== "undefined" ? location.hostname : "";
+  const onLocalhost = /^(localhost|127\.0\.0\.1|\[::1\]|::1)$/.test(host);
+
+  // >>> After deploying the Worker, paste its URL here (this line only): <<<
+  const PROXY_URL = "https://connectome-tutor-proxy.jellybot.workers.dev";
+
   const CONFIG = {
-    endpoint: "https://api.deepseek.com/v1/chat/completions",
+    endpoint: onLocalhost ? "https://api.deepseek.com/v1/chat/completions" : PROXY_URL,
     model: "deepseek-chat",
     stream: true, // stream tokens as they arrive; falls back to whole-response if unavailable
-    maxTokens: 500, // hard cap on answer length; the Phase 7 proxy must apply the same cap
+    maxTokens: 500, // hard cap on answer length; the Worker enforces the same cap server-side
+    usesProxy: !onLocalhost, // the Worker injects the key, so the browser sends none
   };
 
   const SYSTEM_PROMPT =
@@ -181,7 +192,7 @@
     const raw = question.trim();
     if (!raw || busy) return;
 
-    if (!apiKey) {
+    if (!CONFIG.usesProxy && !apiKey) {
       setStatus("Add your DeepSeek API key below first.", true);
       keyInput && keyInput.focus();
       return;
@@ -204,12 +215,11 @@
     setStatus("thinking...");
 
     try {
+      const headers = { "Content-Type": "application/json" };
+      if (!CONFIG.usesProxy) headers.Authorization = "Bearer " + apiKey; // proxy injects the key
       const res = await fetch(CONFIG.endpoint, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apiKey, // Phase 7: drop this line, the proxy adds it
-        },
+        headers,
         body: JSON.stringify({
           model: CONFIG.model,
           stream: CONFIG.stream,
@@ -341,6 +351,13 @@
   }
 
   function refreshKeyUI() {
+    if (CONFIG.usesProxy) {
+      // Hosted site: the Worker holds the key, so hide the paste field entirely.
+      keyInput.hidden = true;
+      keyChangeBtn.hidden = true;
+      keyStatus.textContent = "using the hosted proxy, no key needed";
+      return;
+    }
     const set = !!apiKey;
     keyInput.hidden = set;
     keyInput.value = "";
