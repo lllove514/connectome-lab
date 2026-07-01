@@ -10,6 +10,9 @@
 **Connectome Lab** is an interactive map of the C. elegans connectome, the whole 302-neuron nervous system of a worm, that you can poke and watch fire in the browser.
 
 <p align="center"><img src="./doc/demo.gif" alt="demo" width="720"></p>
+<img width="2594" height="1476" alt="connectome-02-poke" src="https://github.com/user-attachments/assets/1ecfb615-5c75-4cd9-8050-9ace782aafd1" />
+
+<img width="1470" height="800" alt="Screenshot 2026-07-01 at 8 26 58 AM" src="https://github.com/user-attachments/assets/f17988c2-9a4b-4837-a6fc-b2b0c08e7d31" />
 
 ### What it is
 
