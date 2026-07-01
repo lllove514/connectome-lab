@@ -562,6 +562,9 @@ html, body {
   justify-content: center;
   background: rgba(0, 0, 0, 0.45);
 }
+/* display:flex above outranks the [hidden] attribute, so make hidden win back or
+   these overlays can never be closed. */
+#palette[hidden], #help[hidden] { display: none; }
 #palette { align-items: flex-start; }
 #help { align-items: center; }
 

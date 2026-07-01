@@ -36,10 +36,21 @@ It's vanilla JS and an HTML canvas. No React, no build step, nothing to install.
 - A leaky integrate-and-fire simulation on those synapses. Poke a neuron and watch it spread and
   settle.
 - A teaching panel with an oscilloscope of the selected neuron's voltage, a step button, sliders
-  for threshold, gain, and leak, a walkthrough of the touch-reflex circuit, signal tracing
-  between two neurons, an N-hop reach view, and a glossary.
+  for threshold, gain, and leak, guided walkthroughs of a few circuits (the gentle touch reflex,
+  tap withdrawal, chemotaxis, and egg laying), signal tracing between two neurons, an N-hop reach
+  view, and a glossary.
 - A tutor that knows which neuron you've selected and what the sim is doing, so a question like
   "why did this one fire" gets answered about that specific neuron.
+- A muscle layer you can turn on. It draws the 95 body-wall muscles and the motor neuron
+  connections to them, lights the muscles when their motor neurons fire, and shows how much dorsal
+  versus ventral muscle is active.
+- Keyboard shortcuts and a command palette (Cmd or Ctrl K) for finding a neuron or a tool without
+  the mouse.
+- Shareable links. The URL keeps track of what you've selected and which tool is open, so a copied
+  link reopens the same view.
+- A record button that captures a poke as a looping GIF and saves it.
+- A network stats panel with the neuron and connection counts, the average connections per neuron,
+  the top hub neurons, and a small degree histogram.
 
 ### Try it
 
@@ -74,9 +85,9 @@ To keep a local tutor key without pasting it every refresh, drop a `docs/config.
 
 ### How it works
 
-A Python script (`data/build_connectome.py`) pulls the Cook et al. connectome, keeps the neurons, splits chemical wiring from gap junctions, tags each cell sensory/inter/motor, runs a force-directed layout, and writes `docs/connectome.json`. That's the only build step and it's already run, the JSON is committed.
+A Python script (`data/build_connectome.py`) pulls the Cook et al. connectome, keeps the neurons, splits chemical wiring from gap junctions, tags each cell sensory/inter/motor, pulls out the body-wall muscles and the motor neuron connections to them, runs a force-directed layout, and writes `docs/connectome.json`. That's the only build step and it's already run, the JSON is committed.
 
-The front end is vanilla JS and Canvas 2D. One file holds the LIF simulation and the graph math, including one shared data-to-screen transform so a click always lands on the neuron under the cursor. The others do rendering and interaction, the teaching layer, and the tutor. The simulation and the path/reach analysis all run in the browser.
+The front end is vanilla JS and Canvas 2D. One file holds the LIF simulation and the graph math, including one shared data-to-screen transform so a click always lands on the neuron under the cursor. The others do rendering and interaction, the teaching layer, the tutor, and the smaller tools like permalinks, the command palette, the stats panel, the muscle layer, and GIF export. The simulation and the path/reach analysis all run in the browser.
 
 The tutor sends an OpenAI-shaped request to DeepSeek. On the live site it routes through a small Cloudflare Worker (`proxy/`) that holds the key server-side, so nothing to paste. Run it locally and it talks to DeepSeek directly with your own key, kept in memory.
 
@@ -84,8 +95,10 @@ The tutor sends an OpenAI-shaped request to DeepSeek. On the live site it routes
 
 - click a neuron to select it. in Simulate mode a click also pokes it and kicks off a wave.
 - hit Simulate, then Play or Step. Step advances one tick at a time so you can watch the signal move cell to cell from the start.
-- the rail on the right has the oscilloscope, the sandbox sliders, the lesson, trace, and reach. the ? button opens the glossary.
+- the rail on the right has the oscilloscope, the sandbox sliders, the lessons, trace, and reach. the ? button opens the glossary.
 - ask the tutor about the selected neuron. "what does this do", "why did it fire", "what does it connect to" all resolve to whatever you've got selected.
+- turn on show muscles to watch the body-wall muscles light up when their motor neurons fire.
+- press ? for the keyboard shortcuts, or Cmd or Ctrl K for the command palette. copy link grabs a link to the exact view you're on.
 
 ### Data & credits
 

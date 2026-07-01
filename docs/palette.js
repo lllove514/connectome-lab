@@ -293,6 +293,7 @@
         return; // other keys type into the palette input
       }
       if (e.key === "Escape") { onEscape(); return; } // works even from a focused field
+      if (helpEl && !helpEl.hidden) return; // help dialog is open: let its buttons handle Enter/Space
       if (isTyping(e)) return; // ignore single keys while typing in search/tutor/etc.
       if (e.metaKey || e.ctrlKey || e.altKey) return; // leave other chords alone
 
