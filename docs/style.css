@@ -101,6 +101,8 @@ html, body {
 
 #hint { margin: 8px 0 0; min-height: 14px; }
 
+#recstatus { color: var(--muted); font-size: 11px; }
+
 /* The left column belongs to the tutor now, so the type key moves to the
    bottom-centre where it stays clear of both docked panels. */
 #legend {

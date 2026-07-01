@@ -14,7 +14,13 @@
       "Bash(node --check teach.js)",
       "Bash(node permalink_selfcheck.js)",
       "Bash(node --check palette.js)",
-      "Bash(node palette_selfcheck.js)"
+      "Bash(node palette_selfcheck.js)",
+      "Bash(mkdir -p vendor)",
+      "Bash(curl -sSL -o vendor/gif.js https://unpkg.com/gif.js@0.2.0/dist/gif.js)",
+      "Bash(curl -sSL -o vendor/gif.worker.js https://unpkg.com/gif.js@0.2.0/dist/gif.worker.js)",
+      "Bash(node --check record.js)",
+      "Bash(node --check vendor/gif.js)",
+      "Bash(node --check vendor/gif.worker.js)"
     ]
   }
 }
