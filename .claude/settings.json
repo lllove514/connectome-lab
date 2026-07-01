@@ -6,7 +6,13 @@
       "Bash(node --check chat.js)",
       "Bash(python3 -c \"import os; HERE='$\\(pwd\\)/data'; print\\(os.path.relpath\\(os.path.join\\(HERE, os.pardir, 'docs', 'connectome.json'\\)\\)\\)\")",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(node --check ../proxy/src/index.js)"
+      "Bash(node --check ../proxy/src/index.js)",
+      "Bash(cd /Users/iml/Desktop/connectome *)",
+      "Read(//Users/iml/.claude/**)",
+      "Bash(terminal-notifier -title 'Claude Code' -message 'hook test — this is what fires' -sound Glass)",
+      "Bash(node --check permalink.js)",
+      "Bash(node --check teach.js)",
+      "Bash(node permalink_selfcheck.js)"
     ]
   }
 }

@@ -41,6 +41,9 @@
   let tracePick = 0; // 0 off, 1 waiting for the source click, 2 waiting for the target
   let traceSrc = null;
   let circuits = null;
+  let programmaticOpen = null; // tool key opened by a permalink restore, so its
+                               // toggle handler skips the clear it would normally do
+  const detailsFor = {}; // tool key -> its <details> element, used by restore
 
   const COMMAND_IDS = ["AVAL", "AVAR", "AVBL", "AVBR", "AVDL", "AVDR", "PVCL", "PVCR"];
 
@@ -500,7 +503,9 @@
       ["reach", document.getElementById("d-reach")],
     ];
     for (const [key, el] of panels) {
+      detailsFor[key] = el;
       el.addEventListener("toggle", () => {
+        if (programmaticOpen === key) { programmaticOpen = null; return; } // opened by a permalink restore
         if (el.open) {
           state.activeTool = key;
           for (const [, other] of panels) if (other !== el && other.open) other.open = false;
@@ -608,6 +613,44 @@
     ctx.fill();
   }
 
+  // --- permalink support: read and rebuild the shareable tool state ----------
+  //
+  // Both reuse the same private runners the accordion and sliders already use, so
+  // there is no second copy of the tool logic. toolState() reports what is on
+  // screen; activateTool() puts it back. Neither affects normal interaction.
+
+  function toolState() {
+    const open = state.activeTool && state.activeTool !== "sandbox" ? state.activeTool : null;
+    const s = { tool: open || (selectedNeuron ? "oscilloscope" : "none") };
+    if (state.activeTool === "trace" && state.trace) {
+      const p = state.trace.path;
+      s.from = nodes[p[0]].id;
+      s.to = nodes[p[p.length - 1]].id;
+    }
+    if (state.activeTool === "reach") s.reachN = state.reachN;
+    if (state.activeTool === "lesson") s.circuit = "touch_reflex";
+    return s;
+  }
+
+  function activateTool(t) {
+    const key = t.tool;
+    if (key !== "lesson" && key !== "trace" && key !== "reach") return; // oscilloscope/none: the card alone
+    const el = detailsFor[key];
+    if (el && !el.open) { programmaticOpen = key; el.open = true; } // show it, suppress its clear
+    state.activeTool = key;
+    if (key === "lesson") {
+      lessonOpen();
+    } else if (key === "reach") {
+      if (simMode) setSimMode(false);
+      const n = t.reachN != null ? +t.reachN : state.reachN;
+      if (rcN) { rcN.value = n; rcNval.textContent = n; }
+      reachRun(n);
+    } else if (key === "trace") {
+      if (simMode) setSimMode(false);
+      if (t.from && t.to) runTrace(t.from, t.to);
+    }
+  }
+
   function init() {
     build();
     fetch("circuits.json")
@@ -616,6 +659,6 @@
       .catch(() => { circuits = {}; });
   }
 
-  window.Teach = { onSelect: onSelect, onTick: onTick, drawOverlay: drawOverlay };
+  window.Teach = { onSelect: onSelect, onTick: onTick, drawOverlay: drawOverlay, toolState: toolState, activateTool: activateTool };
   init();
 })();
