@@ -198,6 +198,65 @@
     return best;
   }
 
+  // --- Graph analysis over the wiring (shared with the teaching layer) ---------
+  //
+  // These walk the DIRECTED chemical graph only (net.chemOut). A "signal path" is
+  // a chain of chemical synapses; gap junctions are electrical and bidirectional,
+  // a different kind of coupling, so they are deliberately not traversed here.
+
+  // Shortest directed chemical path as node indices [src..tgt] (inclusive), or
+  // null if tgt is unreachable. Unweighted BFS: length-1 counts synapses crossed.
+  function bfsPath(net, srcIdx, tgtIdx) {
+    if (srcIdx === tgtIdx) return [srcIdx];
+    const prev = new Int32Array(net.n).fill(-1);
+    const seen = new Uint8Array(net.n);
+    seen[srcIdx] = 1;
+    let frontier = [srcIdx];
+    while (frontier.length) {
+      const next = [];
+      for (const u of frontier) {
+        const out = net.chemOut[u];
+        for (let k = 0; k < out.length; k += 2) {
+          const v = out[k];
+          if (seen[v]) continue;
+          seen[v] = 1;
+          prev[v] = u;
+          if (v === tgtIdx) {
+            const path = [];
+            for (let c = tgtIdx; c !== -1; c = prev[c]) path.push(c);
+            path.reverse();
+            return path;
+          }
+          next.push(v);
+        }
+      }
+      frontier = next;
+    }
+    return null;
+  }
+
+  // Hop distance from src over directed chemical synapses, BFS truncated at
+  // maxHops. dist[i] = hops to reach neuron i (0 at src), or -1 if not reached.
+  function reach(net, srcIdx, maxHops) {
+    const dist = new Int32Array(net.n).fill(-1);
+    dist[srcIdx] = 0;
+    let frontier = [srcIdx];
+    for (let hop = 1; hop <= maxHops && frontier.length; hop++) {
+      const next = [];
+      for (const u of frontier) {
+        const out = net.chemOut[u];
+        for (let k = 0; k < out.length; k += 2) {
+          const v = out[k];
+          if (dist[v] !== -1) continue;
+          dist[v] = hop;
+          next.push(v);
+        }
+      }
+      frontier = next;
+    }
+    return dist;
+  }
+
   const Sim = {
     DEFAULTS,
     buildNetwork,
@@ -208,6 +267,8 @@
     toScreen,
     toData,
     pickNearest,
+    bfsPath,
+    reach,
   };
 
   if (typeof module !== "undefined" && module.exports) module.exports = Sim;

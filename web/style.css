@@ -158,3 +158,131 @@ html, body {
   border-radius: 5px;
   white-space: pre;
 }
+
+#simToggle.on {
+  color: #ffd27f;
+  border-color: rgba(255, 180, 84, 0.55);
+  background: rgba(255, 180, 84, 0.08);
+}
+
+/* Teaching rail, always visible, docked right. The left is left free for the AI
+   tutor panel in the next phase, so they never overlap. Mirrors the #ui
+   fall-through so the graph stays clickable through the rail's empty areas. */
+#teach {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  bottom: 18px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  pointer-events: none;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--fg);
+}
+
+#teach button,
+#teach input,
+#teach details,
+#teach summary,
+#teach label {
+  pointer-events: auto;
+}
+
+#teach-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+#glossaryBtn {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  padding: 0;
+  color: var(--fg);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+
+#teach-card,
+#teach details {
+  background: rgba(12, 16, 22, 0.9);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px;
+}
+
+#teach-card { padding: 12px; }
+.t-name { font-size: 15px; font-weight: 600; color: #fff; }
+.t-type { margin: 3px 0; color: var(--fg); }
+.t-meta { color: var(--muted); margin-bottom: 8px; }
+.t-state { margin-top: 6px; color: var(--muted); }
+.t-state span { color: #ffd27f; }
+
+#scope {
+  display: block;
+  width: 100%;
+  height: 75px;
+  background: #07090d;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+#teach details { padding: 0; }
+#teach summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 8px 10px;
+  color: var(--muted);
+}
+#teach summary::-webkit-details-marker { display: none; }
+#teach details[open] > summary { color: var(--fg); border-bottom: 1px solid var(--line); }
+.t-body { padding: 10px; display: flex; flex-direction: column; gap: 7px; }
+.t-body label { display: flex; align-items: center; gap: 6px; }
+.t-body input[type="range"] { flex: 1; accent-color: #ffb454; }
+.t-check { color: var(--muted); }
+.t-row { display: flex; align-items: center; gap: 8px; }
+.t-narr { color: var(--fg); line-height: 1.5; }
+.cap { color: var(--muted); font-size: 11px; line-height: 1.4; }
+
+#teach button {
+  padding: 5px 9px;
+  font: inherit;
+  color: var(--fg);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  cursor: pointer;
+}
+#teach button:hover { background: rgba(255, 255, 255, 0.09); }
+
+#glossary {
+  position: fixed;
+  right: 336px;
+  top: 18px;
+  width: 320px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  z-index: 6;
+  padding: 14px 16px;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--fg);
+  background: rgba(12, 16, 22, 0.97);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+}
+#glossary h3 { margin: 0 0 8px; font-size: 13px; }
+#glossary dt { color: #ffd27f; margin-top: 8px; }
+#glossary dd { margin: 2px 0 0; color: var(--muted); }

@@ -1,0 +1,14 @@
+{
+  "touch_reflex": {
+    "name": "Gentle-touch withdrawal reflex",
+    "description": "A light touch to the body wall makes the worm back away: the touch neurons excite the command interneurons, which drive the motor neurons that reverse locomotion.",
+    "neurons": [
+      "ALML", "ALMR", "AVM",
+      "PLML", "PLMR",
+      "AVAL", "AVAR", "AVDL", "AVDR",
+      "AVBL", "AVBR", "PVCL", "PVCR",
+      "VA01", "DA01",
+      "VB01", "DB01"
+    ]
+  }
+}

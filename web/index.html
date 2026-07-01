@@ -12,11 +12,13 @@
   <div id="ui">
     <h1>Connectome Lab</h1>
     <p class="sub">C. elegans hermaphrodite &middot; chemical synapses &amp; gap junctions</p>
-    <input id="search" type="search" placeholder="find a neuron — e.g. ALM"
+    <input id="search" type="search" placeholder="find a neuron, like ALM"
            autocomplete="off" spellcheck="false">
 
     <div id="controls">
       <button id="simToggle" type="button">Simulate</button>
+      <button id="play" type="button" disabled>Play</button>
+      <button id="step" type="button" disabled>Step</button>
       <label id="speedwrap">speed
         <input id="speed" type="range" min="1" max="60" value="20" disabled>
       </label>
@@ -29,7 +31,19 @@
   <div id="tooltip" hidden></div>
   <div id="debugout" hidden></div>
 
+  <!-- Teaching rail, docked right. The left side is reserved for the AI tutor. -->
+  <div id="teach">
+    <div id="teach-head">
+      <span>How a neuron fires</span>
+      <button id="glossaryBtn" type="button" title="what do these words mean?">?</button>
+    </div>
+    <div id="teach-card" hidden></div>
+    <div id="teach-tools"></div>
+  </div>
+  <div id="glossary" hidden></div>
+
   <script src="sim.js"></script>
   <script src="app.js"></script>
+  <script src="teach.js"></script>
 </body>
 </html>

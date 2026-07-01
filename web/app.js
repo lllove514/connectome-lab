@@ -18,6 +18,8 @@ const legend = document.getElementById("legend");
 const search = document.getElementById("search");
 
 const simToggleBtn = document.getElementById("simToggle");
+const playBtn = document.getElementById("play");
+const stepBtn = document.getElementById("step");
 const speedSlider = document.getElementById("speed");
 const hint = document.getElementById("hint");
 const debugChk = document.getElementById("debug");
@@ -50,12 +52,15 @@ const view = { w: 0, h: 0 }; // canvas size in CSS pixels
 let transform = null; // the single data<->screen map, rebuilt on resize
 let hoverId = null;
 let selectedId = null;
+let selectedNeuron = null; // the last-clicked neuron (any mode), a shared source of truth
 let matches = new Set();
 
 // Simulation state (built once the data arrives).
 let sim = null; // { net, state, activation }
+let simParams = Object.assign({}, Sim.DEFAULTS); // live-tunable copy; Sim.DEFAULTS stays pristine
 let simMode = false;
 let playing = false;
+let manual = false; // manual stepping mode: on after Pause/Step, off after Play
 let simTimer = null;
 let simSpeed = Number(speedSlider.value); // ticks per second
 
@@ -65,7 +70,7 @@ fetch("connectome.json")
     return r.json();
   })
   .then(init)
-  .catch((err) => showError("Could not load connectome.json — run data/build_connectome.py first.\n" + err));
+  .catch((err) => showError("Could not load connectome.json. Run data/build_connectome.py first.\n" + err));
 
 function init(data) {
   nodes = data.nodes;
@@ -111,12 +116,70 @@ function init(data) {
   search.addEventListener("input", onSearch);
 
   simToggleBtn.addEventListener("click", () => setSimMode(!simMode));
+  playBtn.addEventListener("click", () => {
+    if (playing) { pause(); manual = true; } // Pause: take manual control
+    else { manual = false; play(); } // Play: hand control back to the clock
+  });
+  stepBtn.addEventListener("click", stepOnce);
   speedSlider.addEventListener("input", () => {
     simSpeed = Number(speedSlider.value); // tickLoop reads this each step, so it adapts live
   });
   debugChk.addEventListener("change", () => {
     debugOut.hidden = !debugChk.checked;
   });
+}
+
+// --- Teaching-layer bridge ----------------------------------------------------
+
+// Call an optional teach.js hook if it is loaded, so app.js runs standalone too.
+function teachHook(name, ...args) {
+  if (typeof Teach !== "undefined" && Teach[name]) Teach[name](...args);
+}
+
+// Single writer for the selection. Keeps selectedId (drives explore highlighting)
+// and selectedNeuron (the shared source of truth read by every teaching tool and
+// the future AI panel) in lockstep, and notifies the teaching layer.
+function setSelected(id) {
+  selectedId = id;
+  selectedNeuron = id ? byId.get(id) : null;
+  teachHook("onSelect", selectedNeuron);
+  requestDraw();
+}
+
+function requestDraw() {
+  if (!playing) draw(); // while playing, the next tick repaints anyway
+}
+
+// Advance the simulation exactly one tick, the Step control. Pauses first, so
+// stepping always leaves you in manual control to watch the signal move neuron
+// by neuron. Additive: casual use never needs it, since a poke still auto-runs.
+function stepOnce() {
+  if (!sim) return;
+  manual = true; // stepping is manual control, so later pokes load without auto-running
+  pause();
+  Sim.step(sim.net, sim.state, simParams);
+  updateGlow();
+  draw();
+  teachHook("onTick", sim.state, sim.activation);
+}
+
+// Fold this tick's spikes into the visual glow (bright on fire, else fade) and
+// report the activity level so the caller can tell when the wave has settled.
+function updateGlow() {
+  const fired = sim.state.fired;
+  const act = sim.activation;
+  let firedCount = 0;
+  let maxGlow = 0;
+  for (let i = 0; i < sim.net.n; i++) {
+    if (fired[i]) {
+      act[i] = 1;
+      firedCount++;
+    } else {
+      act[i] *= GLOW_DECAY;
+    }
+    if (act[i] > maxGlow) maxGlow = act[i];
+  }
+  return { firedCount, maxGlow };
 }
 
 // Rebuild the shared transform from the data bounds and the current canvas CSS
@@ -149,6 +212,7 @@ function draw() {
   ctx.fillRect(0, 0, view.w, view.h);
   if (simMode && sim) drawSim();
   else drawExplore();
+  teachHook("drawOverlay", ctx); // teaching highlights paint on top, wiped next frame
 }
 
 // --- Explore mode: static graph with selection + search highlighting ---------
@@ -310,12 +374,14 @@ function setSimMode(on) {
   simToggleBtn.textContent = on ? "Explore" : "Simulate";
   speedSlider.disabled = !on;
 
+  for (const el of [playBtn, stepBtn]) el.disabled = !on;
   if (on) {
-    selectedId = null; // leave explore highlighting behind
+    setSelected(null); // leave explore highlighting behind (and notify teach)
     matches = new Set();
-    hint.textContent = "click a neuron to fire it";
+    manual = false; // fresh into Simulate: casual clicks auto-run
+    hint.textContent = "Click any neuron to send a wave through it. Use Pause or Step to slow it down.";
     pause();
-    clearSim(); // enter QUIET — the user starts the wave by clicking a neuron
+    clearSim(); // enter QUIET, the user starts the wave by clicking a neuron
   } else {
     pause();
     hint.textContent = "";
@@ -335,11 +401,13 @@ function clearSim() {
 function play() {
   if (playing) return;
   playing = true;
+  playBtn.textContent = "Pause";
   tickLoop();
 }
 
 function pause() {
   playing = false;
+  playBtn.textContent = "Play";
   clearTimeout(simTimer);
 }
 
@@ -348,22 +416,10 @@ function pause() {
 // glow faded) so a settled sim isn't repainting forever.
 function tickLoop() {
   if (!playing) return;
-  Sim.step(sim.net, sim.state, Sim.DEFAULTS);
-
-  const fired = sim.state.fired;
-  const act = sim.activation;
-  let firedCount = 0;
-  let maxGlow = 0;
-  for (let i = 0; i < sim.net.n; i++) {
-    if (fired[i]) {
-      act[i] = 1;
-      firedCount++;
-    } else {
-      act[i] *= GLOW_DECAY;
-    }
-    if (act[i] > maxGlow) maxGlow = act[i];
-  }
+  Sim.step(sim.net, sim.state, simParams);
+  const { firedCount, maxGlow } = updateGlow();
   draw();
+  teachHook("onTick", sim.state, sim.activation); // runs even on the settling tick
 
   if (firedCount === 0 && maxGlow < SETTLE_GLOW) {
     pause(); // wave has died out — auto-pause
@@ -376,9 +432,11 @@ function tickLoop() {
 // each click replaces the last wave instead of piling on.
 function pokeAt(index) {
   clearSim();
-  Sim.poke(sim.state, index, Sim.DEFAULTS.poke);
+  Sim.poke(sim.state, index, simParams.poke);
   sim.activation[index] = 1;
-  playing ? draw() : play();
+  // A poke auto-runs, except in manual mode (after Pause or Step): then it just
+  // loads the stimulus and stays paused, so you can Step it forward from tick 0.
+  !playing && !manual ? play() : draw();
 }
 
 // --- Pointer + search ---------------------------------------------------------
@@ -430,7 +488,10 @@ function onClick(e) {
   showDebug(x, y, n);
 
   if (simMode) {
-    if (n) pokeAt(sim.net.index.get(n.id)); // poke the clicked neuron; a miss does nothing
+    if (n) {
+      pokeAt(sim.net.index.get(n.id)); // poke the clicked neuron; a miss does nothing
+      setSelected(n.id); // firing also updates the info card + oscilloscope
+    }
     return;
   }
 
@@ -438,8 +499,7 @@ function onClick(e) {
   // selection and clearing search highlights); a miss clears everything.
   matches = new Set();
   search.value = "";
-  selectedId = n ? n.id : null;
-  draw();
+  setSelected(n ? n.id : null);
 }
 
 // Case-insensitive prefix match; highlight every hit and focus the first.
@@ -452,10 +512,10 @@ function onSearch() {
     }
     if (!simMode) {
       const first = nodes.find((n) => matches.has(n.id));
-      selectedId = first ? first.id : null;
+      setSelected(first ? first.id : null);
     }
   } else if (!simMode) {
-    selectedId = null;
+    setSelected(null);
   }
   if (!playing) draw();
 }

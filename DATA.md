@@ -27,6 +27,15 @@ are filed by the source under location/sex buckets rather than by role, so they
 are rescued by name from their lineage-fixed identities. CAN has no chemical
 synapses and no accepted role, so it is left `unknown`.
 
+## Teaching layer
+
+The guided touch-reflex circuit (`web/circuits.json`) and the glossary in
+`web/teach.js` are curated from WormAtlas (https://www.wormatlas.org) and the
+C. elegans touch-circuit literature (Chalfie et al.; the gentle-touch reflex).
+Neuron memberships (ALM/AVM/PLM touch cells, the AVA/AVB/AVD/PVC command
+interneurons, and representative VA/DA/VB/DB motor neurons) follow the
+WormAtlas neuron descriptions.
+
 ## License and reuse
 
 No explicit open-data license (no CC BY or CC0) is stated by the source; the data
@@ -38,3 +47,8 @@ Raw files are not redistributed — `data/raw/` is gitignored. Only the transfor
 non-commercial and educational.
 
 For commercial reuse, contact the Emmons Lab; this project is a non-commercial demo.
+
+## Credits
+
+- Connectome data: Cook et al. 2019 / Emmons Lab / WormWiring, via Netzschleuder.
+- Circuit memberships and glossary: WormAtlas (https://www.wormatlas.org).
