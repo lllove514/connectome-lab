@@ -7,7 +7,7 @@
   <a href="./LICENSE"><img alt="License MIT" src="https://img.shields.io/badge/License-MIT-ffb454?style=for-the-badge&labelColor=0a0c10"></a>
 </p>
 
-**Connectome Lab** is an interactive map of the C. elegans connectome, the whole 302-neuron nervous system of a worm, that you can poke and watch fire in the browser.
+**Connectome Lab** puts the entire C. elegans connectome, the 302-neuron nervous system of a worm, in your browser. Click a neuron and watch it fire.
 
 <p align="center"><img src="./doc/demo.gif" alt="demo" width="720"></p>
 <img width="2594" height="1476" alt="connectome-02-poke" src="https://github.com/user-attachments/assets/1ecfb615-5c75-4cd9-8050-9ace782aafd1" />
